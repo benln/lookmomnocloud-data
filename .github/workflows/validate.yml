@@ -15,3 +15,10 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run validate
+      # Build the JSON here too: it proves the export still works on every change,
+      # and gives anyone a downloadable copy without waiting for a site deploy.
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dataset-json
+          path: dist/dataset.json

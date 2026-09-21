@@ -36,6 +36,12 @@ Every asserted value carries a source URL, a verification date and a confidence 
 is a first-class answer. Entries not re-checked in 18 months are flagged as needing review on the
 site rather than quietly presented as current.
 
+## Machine-readable export
+
+`npm run build` writes `dist/dataset.json` — every device and brand in one file, with `tier`
+already resolved so you don't have to reimplement the decision table. It is generated, not
+committed: CI attaches it to every run, and the site publishes it.
+
 ## Licence
 
 Data under [ODbL 1.0](LICENSE.md), scripts under MIT. Use it, including commercially — just
