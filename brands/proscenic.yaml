@@ -1,0 +1,6 @@
+# yaml-language-server: $schema=../schema/brand.schema.json
+id: proscenic
+name: Proscenic
+local_control_revoked_history:
+  value: unknown
+  notes: Not reviewed yet.

@@ -1,9 +1,8 @@
 # yaml-language-server: $schema=../../schema/device.schema.json
-id: roborock-s5
+id: roborock-s7-pro-ultra
 brand: roborock
-model: S5
+model: S7 Pro Ultra
 hardware_revision: null
-discontinued: true
 category: robot-vacuums
 
 ha:
@@ -13,13 +12,7 @@ criteria:
   works_offline:
     value: unknown
   no_account_required:
-    value: false
-    source: https://www.home-assistant.io/integrations/roborock/
-    verified_on: 2026-09-21
-    confidence: vendor_documented
-    notes: >-
-      The Home Assistant integration is configured with Roborock account credentials, so a
-      vendor account is unavoidable as shipped.
+    value: unknown
   local_api:
     value: unknown
   cloud_blockable:
@@ -33,19 +26,12 @@ criteria:
     confidence: vendor_documented
     notes: Listed as supported by Valetudo.
   ha_local_integration:
-    value: true
-    source: https://github.com/home-assistant/core/blob/dev/homeassistant/components/roborock/manifest.json
-    verified_on: 2026-09-21
-    confidence: vendor_documented
-    notes: >-
-      'iot_class: local_polling' - and this is exactly why criterion 7 must not drive the
-      verdict. Home Assistant polls the robot locally, yet setting it up still requires a
-      Roborock account. "Local" in HA's sense is not "independent of the vendor".
+    value: unknown
 
 flashing:
   supported: true
   firmwares: [valetudo]
-  method: ota
+  method: fel
   guide_url: https://valetudo.cloud/pages/general/supported-robots/
   guide_is_ours: false
   tier_after_flash: fully-local
