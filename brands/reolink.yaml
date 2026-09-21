@@ -1,0 +1,9 @@
+id: reolink
+name: Reolink
+website: https://reolink.com/
+country: CN
+local_control_revoked_history:
+  value: unknown
+  # To assert `false` we need a documented review of the firmware changelog and of the
+  # Home Assistant integration's history, linked as the source. Absence of evidence is not
+  # evidence of absence, and this field is the one brands will argue about.

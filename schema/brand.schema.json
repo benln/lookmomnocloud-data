@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lookmomnocloud.com/schema/brand.schema.json",
+  "title": "Brand",
+  "description": "Brand-level trust record. Holds the 8th criterion, which is a property of the vendor, not of any one device.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name", "local_control_revoked_history"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "name": { "type": "string", "minLength": 1 },
+    "website": { "type": "string", "pattern": "^https://" },
+    "country": { "type": ["string", "null"] },
+    "local_control_revoked_history": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value"],
+      "description": "true = this vendor HAS removed local control from already-sold hardware. A fact, not a prediction.",
+      "properties": {
+        "value": { "enum": [true, false, "unknown"] },
+        "verified_on": { "type": "string", "format": "date" },
+        "notes": { "type": "string" },
+        "incidents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["date", "summary", "source"],
+            "properties": {
+              "date": { "type": "string", "format": "date" },
+              "summary": { "type": "string", "minLength": 10 },
+              "source": { "type": "string", "pattern": "^https://" },
+              "resolved": { "type": "boolean", "default": false }
+            }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "value": { "const": true } } },
+          "then": { "required": ["value", "verified_on", "incidents"] }
+        }
+      ]
+    },
+    "notes": { "type": "string" }
+  }
+}

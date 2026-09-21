@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lookmomnocloud.com/schema/device.schema.json",
+  "title": "Device",
+  "description": "One device, as shipped. Criteria NEVER describe a modified device - see the `flashing` block for that.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "brand", "model", "category", "criteria", "flashing"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "brand": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "model": { "type": "string", "minLength": 1 },
+    "hardware_revision": {
+      "type": ["string", "null"],
+      "description": "Null only when the brand ships a single revision. Same box + different chip = different entry."
+    },
+    "category": { "enum": ["cameras", "video-doorbells", "robot-vacuums"] },
+    "released": { "type": ["integer", "null"], "minimum": 2000, "maximum": 2100 },
+    "discontinued": { "type": "boolean", "default": false },
+    "product_url": { "$ref": "#/$defs/https" },
+    "images": { "type": "array", "items": { "$ref": "#/$defs/image" } },
+    "ha": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "integration": {
+          "type": ["string", "null"],
+          "description": "Home Assistant integration domain. Joins against home-assistant/core manifests to inherit iot_class."
+        },
+        "works_with_ha_certified": { "type": "boolean" }
+      }
+    },
+    "criteria": { "$ref": "#/$defs/criteria" },
+    "flashing": { "$ref": "#/$defs/flashing" },
+    "offers": { "type": "array", "items": { "$ref": "#/$defs/offer" } },
+    "notes": { "type": "string" }
+  },
+  "$defs": {
+    "https": { "type": "string", "pattern": "^https://" },
+    "criterion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value"],
+      "properties": {
+        "value": {
+          "enum": [true, false, "unknown"],
+          "description": "`unknown` is a first-class answer. Never guess."
+        },
+        "source": { "$ref": "#/$defs/https" },
+        "verified_on": { "type": "string", "format": "date" },
+        "firmware": { "type": ["string", "null"] },
+        "confidence": { "enum": ["vendor_documented", "community_verified", "editor_tested"] },
+        "notes": { "type": "string" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "value": { "not": { "const": "unknown" } } } },
+          "then": {
+            "required": ["value", "source", "verified_on", "confidence"],
+            "description": "Any asserted value - true OR false - needs a source. A negative claim about a brand is the one that gets you a lawyer's letter."
+          }
+        }
+      ]
+    },
+    "criteria": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "works_offline",
+        "no_account_required",
+        "local_api",
+        "cloud_blockable",
+        "local_firmware_updates",
+        "alternative_firmware",
+        "ha_local_integration"
+      ],
+      "properties": {
+        "works_offline": { "$ref": "#/$defs/criterion" },
+        "no_account_required": { "$ref": "#/$defs/criterion" },
+        "local_api": { "$ref": "#/$defs/criterion" },
+        "cloud_blockable": { "$ref": "#/$defs/criterion" },
+        "local_firmware_updates": { "$ref": "#/$defs/criterion" },
+        "alternative_firmware": { "$ref": "#/$defs/criterion" },
+        "ha_local_integration": { "$ref": "#/$defs/criterion" }
+      }
+    },
+    "flashing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["supported"],
+      "properties": {
+        "supported": { "enum": [true, false, "unknown"] },
+        "firmwares": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "enum": ["esphome", "tasmota", "openbeken", "valetudo", "openipc", "custom"] }
+        },
+        "method": { "enum": ["ota", "cloudcutter", "serial", "root-shell", "sd-card", "physical-mod"] },
+        "requires_soldering": { "type": "boolean" },
+        "difficulty": { "enum": ["easy", "medium", "hard"] },
+        "reversible": { "type": ["boolean", "null"] },
+        "guide_url": { "$ref": "#/$defs/https" },
+        "guide_is_ours": {
+          "type": "boolean",
+          "default": false,
+          "description": "Point by default, write by exception. True only when we are the canonical source."
+        },
+        "tier_after_flash": { "enum": ["fully-local", "local-cloud-optional"] },
+        "source": { "$ref": "#/$defs/https" },
+        "verified_on": { "type": "string", "format": "date" },
+        "notes": { "type": "string" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "supported": { "const": true } } },
+          "then": {
+            "required": ["supported", "firmwares", "method", "difficulty", "guide_url", "tier_after_flash", "source", "verified_on"]
+          }
+        }
+      ]
+    },
+    "offer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["merchant", "url"],
+      "properties": {
+        "merchant": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+        "sku": {
+          "type": ["string", "null"],
+          "description": "Stable merchant identifier (ASIN, etc). Prices are resolved at build time from these - NEVER stored here."
+        },
+        "region": { "enum": ["us", "eu", "uk", "global"] },
+        "url": { "$ref": "#/$defs/https" }
+      }
+    },
+    "image": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["src", "license"],
+      "properties": {
+        "src": { "type": "string" },
+        "credit": { "type": ["string", "null"] },
+        "license": { "enum": ["mit", "cc-by", "cc-by-sa", "vendor-nominative", "own-work"] },
+        "source": { "$ref": "#/$defs/https" }
+      }
+    }
+  }
+}

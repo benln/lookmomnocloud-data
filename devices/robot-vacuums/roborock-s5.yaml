@@ -1,0 +1,84 @@
+id: roborock-s5
+brand: roborock
+model: S5
+hardware_revision: null
+category: robot-vacuums
+released: 2018
+discontinued: true
+product_url: https://roborock.com/
+
+ha:
+  integration: roborock
+  works_with_ha_certified: false
+
+criteria:
+  works_offline:
+    value: unknown
+    notes: >-
+      Nuanced, and worth getting exactly right: the robot cleans from its physical button
+      with no network at all, but scheduling, maps and app control are a different question.
+      Decide and document where the line sits for this category, then apply it consistently.
+
+  no_account_required:
+    value: false
+    source: https://www.home-assistant.io/integrations/roborock/
+    verified_on: 2026-09-21
+    confidence: vendor_documented
+    notes: >-
+      The Home Assistant integration is configured with Roborock account credentials, so a
+      vendor account is unavoidable as shipped.
+
+  local_api:
+    value: unknown
+    notes: >-
+      There is a local protocol, but the token needed to speak it is obtained through the
+      vendor cloud. Decide whether "documented local protocol behind a cloud-issued token"
+      counts as true - and whatever you decide, write it into schema/tiers.md rather than
+      deciding case by case.
+
+  cloud_blockable:
+    value: unknown
+    notes: "Verify on a fully firewalled unit, post-pairing."
+
+  local_firmware_updates:
+    value: unknown
+
+  alternative_firmware:
+    value: true
+    source: https://valetudo.cloud/pages/general/supported-robots/
+    verified_on: 2026-09-21
+    confidence: vendor_documented
+    notes: Roborock S5 is listed as supported by Valetudo.
+
+  ha_local_integration:
+    value: true
+    source: https://github.com/home-assistant/core/blob/dev/homeassistant/components/roborock/manifest.json
+    verified_on: 2026-09-21
+    confidence: vendor_documented
+    notes: >-
+      'iot_class: local_polling' - and this is exactly why criterion 7 must not drive the
+      verdict. Home Assistant polls the robot locally, yet setting it up still requires a
+      Roborock account. "Local" in HA's sense is not "independent of the vendor".
+
+flashing:
+  supported: true
+  firmwares: [valetudo]
+  method: root-shell
+  requires_soldering: false
+  difficulty: hard
+  reversible: true
+  guide_url: https://valetudo.cloud/pages/general/supported-robots/
+  guide_is_ours: false
+  tier_after_flash: fully-local
+  source: https://valetudo.cloud/pages/general/supported-robots/
+  verified_on: 2026-09-21
+  notes: >-
+    Rooting voids the warranty and can brick the robot. Link out to Valetudo rather than
+    rewriting their instructions - they are the canonical source and they maintain it.
+
+offers: []
+
+notes: >-
+  FIXTURE - written to exercise the schema, not yet fit to publish. Discontinued, chosen
+  because it is the best-documented Valetudo target and so exercises the flashing block
+  against real, checkable facts.

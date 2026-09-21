@@ -1,0 +1,18 @@
+id: chamberlain
+name: Chamberlain
+website: https://chamberlain.com/
+country: US
+local_control_revoked_history:
+  value: true
+  verified_on: 2026-09-21
+  incidents:
+    - date: 2023-11-06
+      summary: >-
+        Chamberlain blocked all unofficial access to myQ, killing the Home Assistant
+        integration for devices customers already owned. Home Assistant removed the
+        integration rather than keep fighting the vendor.
+      source: https://www.home-assistant.io/blog/2023/11/06/removal-of-myq-integration/
+      resolved: false
+notes: >-
+  No devices catalogued yet. This entry exists because the brand record is the point:
+  a vendor that has done this once is a different purchase risk from one that has not.

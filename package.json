@@ -1,0 +1,17 @@
+{
+  "name": "lookmomnocloud-data",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Open dataset of smart home devices that work without the vendor's cloud.",
+  "license": "ODbL-1.0",
+  "scripts": {
+    "validate": "node scripts/validate.mjs",
+    "test": "node --test scripts/*.test.mjs"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "yaml": "^2.8.1"
+  }
+}

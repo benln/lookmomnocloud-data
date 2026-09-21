@@ -1,0 +1,64 @@
+id: reolink-rlc-811a
+brand: reolink
+model: RLC-811A
+hardware_revision: null
+category: cameras
+released: 2021
+product_url: https://reolink.com/
+
+ha:
+  integration: reolink
+  works_with_ha_certified: true
+
+criteria:
+  works_offline:
+    value: unknown
+    notes: >-
+      Verify: cut the WAN for 72h and confirm motion recording to SD, the RTSP stream and
+      NVR recording all continue. Test local playback too, not just live view.
+
+  no_account_required:
+    value: unknown
+    notes: >-
+      Verify: add the camera by IP in the Reolink desktop client without signing in, and
+      complete first-boot setup offline.
+
+  local_api:
+    value: true
+    source: https://github.com/home-assistant/core/blob/dev/homeassistant/components/reolink/manifest.json
+    verified_on: 2026-09-21
+    confidence: vendor_documented
+    notes: >-
+      Home Assistant's integration is local_push, which requires a local control channel.
+      Re-source this to Reolink's own ONVIF/RTSP documentation before publishing - HA's
+      manifest proves a local channel exists, not that Reolink documents it publicly.
+
+  cloud_blockable:
+    value: unknown
+    notes: >-
+      Verify: firewall the camera off the WAN for a week. Confirm no feature degradation,
+      and that it can still be reconfigured afterwards.
+
+  local_firmware_updates:
+    value: unknown
+    notes: "Verify: manual .pak upload via the web UI, and confirm there is no forced auto-update."
+
+  alternative_firmware:
+    value: unknown
+    notes: "Check the OpenIPC hardware support list for this SoC - https://openipc.org/"
+
+  ha_local_integration:
+    value: true
+    source: https://github.com/home-assistant/core/blob/dev/homeassistant/components/reolink/manifest.json
+    verified_on: 2026-09-21
+    confidence: vendor_documented
+    notes: 'iot_class: local_push'
+
+flashing:
+  supported: unknown
+
+offers: []
+
+notes: >-
+  FIXTURE - written to exercise the schema, not yet fit to publish. Every `unknown` above is
+  a real piece of work. The entry deliberately comes out as `unverified`.

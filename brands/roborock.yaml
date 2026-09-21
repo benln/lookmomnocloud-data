@@ -1,0 +1,10 @@
+id: roborock
+name: Roborock
+website: https://roborock.com/
+country: CN
+local_control_revoked_history:
+  value: unknown
+  notes: >-
+    Needs review of the rooting situation across generations. Roborock has progressively
+    hardened later models against rooting, which is not the same thing as removing local
+    control from hardware already sold - do not conflate the two when filling this in.
