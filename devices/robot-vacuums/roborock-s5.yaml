@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=../../schema/device.schema.json
 id: roborock-s5
 brand: roborock
 model: S5

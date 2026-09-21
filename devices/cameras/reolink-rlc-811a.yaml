@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=../../schema/device.schema.json
 id: reolink-rlc-811a
 brand: reolink
 model: RLC-811A

@@ -8,6 +8,10 @@ You do not need to run the website to fix the data. This repository is YAML and 
 2. Run `npm install && npm run validate`. The same check runs on your pull request.
 3. Open the pull request.
 
+Every entry carries a `# yaml-language-server:` line at the top. Any editor with the YAML
+Language Server (VS Code, Zed, Neovim, JetBrains) picks it up and gives you key completion,
+enum completion and errors underlined as you type — so you find out about a typo before CI does.
+
 ## The one rule
 
 **Every asserted value needs a source.** `true` and `false` both need a URL, a verification date

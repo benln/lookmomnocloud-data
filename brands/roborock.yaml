@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=../schema/brand.schema.json
 id: roborock
 name: Roborock
 website: https://roborock.com/

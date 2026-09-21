@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=../schema/brand.schema.json
 id: reolink
 name: Reolink
 website: https://reolink.com/
