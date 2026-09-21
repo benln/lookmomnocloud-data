@@ -1,0 +1,47 @@
+name: Add a device
+description: Suggest a device that should be assessed.
+labels: ["new-device", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        You do not need to know all eight criteria. Tell us what you know and how you know it —
+        an honest partial entry is worth more than a confident complete one.
+  - type: input
+    id: brand
+    attributes: { label: Brand, placeholder: Reolink }
+    validations: { required: true }
+  - type: input
+    id: model
+    attributes: { label: Model, placeholder: RLC-811A }
+    validations: { required: true }
+  - type: input
+    id: revision
+    attributes:
+      label: Hardware revision
+      description: If you know it. Same box with a different chip is a different device to us.
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options: [Camera, Video doorbell, Robot vacuum, Something else]
+    validations: { required: true }
+  - type: input
+    id: product_url
+    attributes: { label: Product page, placeholder: "https://..." }
+  - type: textarea
+    id: knowledge
+    attributes:
+      label: What do you know about it?
+      description: |
+        Does it work with the internet cut? Does setup need an account? Is there a local API?
+        Can it be firewalled off for good? Can it run alternative firmware?
+    validations: { required: true }
+  - type: textarea
+    id: sources
+    attributes:
+      label: How do you know?
+      description: |
+        Links to vendor documentation, a forum thread, a teardown — or "I tested it myself", and
+        say what you did. Nothing goes in as `true` or `false` without a source.
+    validations: { required: true }

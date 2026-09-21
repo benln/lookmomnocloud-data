@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Fix it yourself
+    url: https://github.com/benln/lookmomnocloud-data/blob/main/CONTRIBUTING.md
+    about: Entries are plain YAML with a schema. A pull request is often faster than an issue.
+  - name: Something wrong with the website
+    url: https://github.com/benln/lookmomnocloud-data/issues/new?template=correction.yml
+    about: Wrong data goes here. Broken pages are handled elsewhere - say so in a correction and it will be routed.

@@ -1,0 +1,35 @@
+name: A vendor removed local control
+description: A manufacturer took local control away from hardware people already owned.
+labels: ["vendor-incident", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This is the single most valuable thing you can report here. It is the one criterion no
+        spec sheet carries, and it goes on the brand's permanent record.
+  - type: input
+    id: brand
+    attributes: { label: Brand }
+    validations: { required: true }
+  - type: input
+    id: date
+    attributes: { label: When, placeholder: "2023-11-06" }
+    validations: { required: true }
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What worked before, what stopped working, and on which devices.
+    validations: { required: true }
+  - type: input
+    id: source
+    attributes:
+      label: Source
+      description: An announcement, a changelog, news coverage, or an upstream project's post.
+    validations: { required: true }
+  - type: checkboxes
+    id: resolved
+    attributes:
+      label: Status
+      options:
+        - label: The vendor later reversed this

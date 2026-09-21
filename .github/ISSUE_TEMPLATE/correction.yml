@@ -1,0 +1,53 @@
+name: Correct an entry
+description: Something we published is wrong or out of date.
+labels: ["correction", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: Corrections are more welcome than additions. Being wrong in public only works if it gets fixed.
+  - type: input
+    id: entry
+    attributes:
+      label: Which entry
+      description: The page URL, or the file in `devices/`.
+      placeholder: https://lookmomnocloud.com/devices/reolink-rlc-811a/
+    validations: { required: true }
+  - type: dropdown
+    id: field
+    attributes:
+      label: What is wrong
+      options:
+        - Works with the internet cut
+        - No vendor account needed
+        - Documented local API
+        - Can be firewalled off for good
+        - Firmware updates without the cloud
+        - Runs alternative firmware
+        - Home Assistant talks to it locally
+        - The flashing route
+        - Something else (say below)
+    validations: { required: true }
+  - type: textarea
+    id: correction
+    attributes: { label: What it should say }
+    validations: { required: true }
+  - type: input
+    id: source
+    attributes:
+      label: Source
+      description: A URL. Required for a negative claim as much as a positive one.
+    validations: { required: true }
+  - type: dropdown
+    id: confidence
+    attributes:
+      label: How do you know?
+      options:
+        - The manufacturer or an upstream project documents it
+        - Someone reported testing it (link above)
+        - I tested it myself
+    validations: { required: true }
+  - type: input
+    id: firmware
+    attributes:
+      label: Firmware version
+      description: Vendors change behaviour in updates. Without a version, a claim ages badly.
