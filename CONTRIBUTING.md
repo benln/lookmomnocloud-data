@@ -44,3 +44,22 @@ Confidence levels, from weakest to strongest:
 A vendor removing local control from hardware people already own is the single most valuable
 thing you can report. Open an issue with a link to the announcement, changelog or news coverage.
 It goes on the brand's record in `brands/`.
+
+## Licensing your contribution
+
+By opening a pull request, or an issue containing data, you agree that your contribution is
+published under the same terms as the rest of this repository: **ODbL 1.0** for anything under
+`devices/`, `brands/` and `schema/`, and **MIT** for anything under `scripts/`.
+
+You keep whatever rights you hold in what you wrote. You are granting the same terms everyone
+else here already grants — nothing more, and no transfer of ownership.
+
+Two things that follow from this, and that we will ask about:
+
+- **Don't contribute data you are not free to relicense.** In particular, nothing copied from
+  `products.z-wavealliance.org` or `csa-iot.org`: their terms of use forbid it, and permissively
+  licensed equivalents exist for the same facts. Individual facts with a link to where you found
+  them are always fine — a copied table is not.
+- **Images need a licence we can accept**: your own photo, or something already under MIT, CC-BY
+  or CC-BY-SA. Tag it in the entry's `images` block. A product shot lifted from a shop listing
+  is not something we can republish.
