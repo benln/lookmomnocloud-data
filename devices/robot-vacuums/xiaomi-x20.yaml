@@ -1,0 +1,81 @@
+# yaml-language-server: $schema=../../schema/device.schema.json
+id: xiaomi-x20
+brand: xiaomi
+model: Robot Vacuum X20
+hardware_revision: null
+category: robot-vacuums
+released: 2024
+product_url: https://www.mi.com/global/product/xiaomi-robot-vacuum-x20/
+
+ha:
+  integration: xiaomi_vac
+  works_with_ha_certified: false
+  route: hacs
+  cloud_needed: setup-only
+  guide_url: https://github.com/letitbe-dull/xiaomi-vac
+  source: https://github.com/letitbe-dull/xiaomi-vac
+  verified_on: 2026-09-22
+  notes: >-
+    Reports as xiaomi.vacuum.c101eu. Not in core xiaomi_miio's vacuum list (Roborock-only)
+    and on Tasshack's Dreame component's unsupported list, since it is not Dreame-built. The
+    xiaomi-vac HACS component lists c101/eu and offers two setup paths: a Mi account login
+    for cloud-assisted discovery and live maps, or "Local token" - IP and 32-character
+    token - "if you want LAN control without storing Xiaomi cloud credentials". Either way
+    the token comes from the Mi Home account the robot was paired with, and day-to-day
+    control is local MIoT polling (manifest iot_class local_polling).
+
+criteria:
+  works_offline:
+    value: unknown
+    notes: >-
+      Xiaomi's product page only says the robot is controlled with the Mi Home / Xiaomi
+      Home app; mi.com's support pages are a JavaScript shell and no vendor statement about
+      running with the internet cut could be opened.
+  no_account_required:
+    value: unknown
+    notes: >-
+      Pairing is through the Mi Home / Xiaomi Home app, but every mi.com support article on
+      adding a device refused to load, so the Mi-account requirement is unsourced.
+  local_api:
+    value: true
+    source: https://github.com/letitbe-dull/xiaomi-vac
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      The xiaomi-vac integration lists xiaomi.vacuum.c101/eu and controls it over the LAN
+      with the MIoT protocol once it has the IP and token.
+  cloud_blockable:
+    value: unknown
+    notes: No source states what the robot does once permanently firewalled from Xiaomi's servers.
+  local_firmware_updates:
+    value: unknown
+    notes: No Xiaomi statement on how X20 firmware is delivered could be opened.
+  alternative_firmware:
+    value: false
+    source: https://valetudo.cloud/pages/general/supported-robots/
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Not on Valetudo's supported-robots list; Valetudo's Xiaomi section stops at the X10
+      Plus, and no other alternative firmware project lists the X20 series.
+  ha_local_integration:
+    value: unknown
+    notes: >-
+      No core integration; xiaomi_miio's vacuum model list is Roborock-only, so there is no
+      core iot_class to inherit. The HACS component's manifest is local_polling.
+
+flashing:
+  supported: false
+  notes: >-
+    No alternative firmware project lists the X20; Valetudo's Xiaomi coverage ends with the
+    Dreame-built X10 Plus.
+
+offers: []
+
+notes: >-
+  Unlike the X10+, the X20 is a Xiaomi-built robot (xiaomi.vacuum.c101eu), so the Dreame
+  tricks stop working: no Valetudo, no Dreame HACS integration. Home Assistant still gets
+  in through the xiaomi-vac HACS component, which talks MIoT over the LAN once it has the
+  token; the token itself is a one-time trip through the Xiaomi account. What the robot
+  does with Xiaomi's servers gone is not documented anywhere we could open, so as sold it
+  stays unverified.

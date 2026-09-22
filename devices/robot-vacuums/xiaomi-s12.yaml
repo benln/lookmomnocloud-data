@@ -1,0 +1,79 @@
+# yaml-language-server: $schema=../../schema/device.schema.json
+id: xiaomi-s12
+brand: xiaomi
+model: Robot Vacuum S12
+hardware_revision: null
+category: robot-vacuums
+released: 2023
+product_url: https://www.mi.com/global/support/user-guide-pdf/si/xiaomi-robot-vacuum-s12/
+
+ha:
+  integration: xiaomi_vac
+  works_with_ha_certified: false
+  route: hacs
+  cloud_needed: setup-only
+  guide_url: https://github.com/letitbe-dull/xiaomi-vac
+  source: https://github.com/letitbe-dull/xiaomi-vac
+  verified_on: 2026-09-22
+  notes: >-
+    Reports as xiaomi.vacuum.b106eu. Core xiaomi_miio refuses it ("Does not recognize the
+    device model", home-assistant/core issue 107481) and Tasshack's Dreame component lists
+    it as unsupported, since it is not Dreame-built. The xiaomi-vac HACS component lists
+    b106bk/eu and offers two setup paths: a Mi account login for cloud-assisted discovery
+    and live maps, or "Local token" - IP and 32-character token - "if you want LAN control
+    without storing Xiaomi cloud credentials". Either way the token comes from the Mi Home
+    account the robot was paired with, and day-to-day control is local MIoT polling
+    (manifest iot_class local_polling).
+
+criteria:
+  works_offline:
+    value: unknown
+    notes: >-
+      mi.com's product and support pages for the S12 are a JavaScript shell and no vendor
+      statement about running with the internet cut could be opened.
+  no_account_required:
+    value: unknown
+    notes: >-
+      Pairing is through the Mi Home / Xiaomi Home app, but every mi.com support article on
+      adding a device refused to load, so the Mi-account requirement is unsourced.
+  local_api:
+    value: true
+    source: https://github.com/letitbe-dull/xiaomi-vac
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      The xiaomi-vac integration lists xiaomi.vacuum.b106bk/eu and controls it over the LAN
+      with the MIoT protocol once it has the IP and token.
+  cloud_blockable:
+    value: unknown
+    notes: No source states what the robot does once permanently firewalled from Xiaomi's servers.
+  local_firmware_updates:
+    value: unknown
+    notes: No Xiaomi statement on how S12 firmware is delivered could be opened.
+  alternative_firmware:
+    value: false
+    source: https://valetudo.cloud/pages/general/supported-robots/
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Not on Valetudo's supported-robots list, and no other alternative firmware project
+      lists the S12.
+  ha_local_integration:
+    value: unknown
+    notes: >-
+      No core integration; xiaomi_miio does not recognise the model, so there is no core
+      iot_class to inherit. The HACS component's manifest is local_polling.
+
+flashing:
+  supported: false
+  notes: No alternative firmware project lists the S12.
+
+offers: []
+
+notes: >-
+  A Xiaomi-built robot (xiaomi.vacuum.b106eu) rather than a rebadged Dreame or Roborock,
+  which is why the core Home Assistant integration turns it away and Valetudo has nothing
+  for it. The xiaomi-vac HACS component gets it into Home Assistant over the LAN once you
+  have the token, and the token is one login to the Xiaomi account away. Nothing Xiaomi
+  publishes about what survives without its servers could be opened, so as sold it stays
+  unverified.

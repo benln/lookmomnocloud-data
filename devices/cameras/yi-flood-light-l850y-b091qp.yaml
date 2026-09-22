@@ -1,0 +1,104 @@
+# yaml-language-server: $schema=../../schema/device.schema.json
+id: yi-flood-light-l850y-b091qp
+brand: yi
+model: Flood Light Camera Outdoor L850Y
+hardware_revision: "b091qp"
+category: cameras
+
+ha:
+  integration: null
+  works_with_ha_certified: false
+  route: after-flash
+  cloud_needed: never
+  guide_url: https://github.com/roleoroleo/yi-hack-Allwinner-v2
+  source: https://github.com/roleoroleo/yi-hack-Allwinner-v2
+  verified_on: 2026-09-22
+  notes: >-
+    No core integration for the camera as sold. Once yi-hack-Allwinner-v2 is on the SD card
+    the camera speaks RTSP, ONVIF and MQTT, so Home Assistant's ONVIF integration (Local
+    Push), generic camera and MQTT integration (Local Push) pick it up with no vendor login;
+    the project also ships a HACS component
+    (https://github.com/roleoroleo/yi-hack_ha_integration) built on MQTT. Home Assistant's
+    legacy core `yi` integration (local_polling, FTP based) only works with the hacked
+    firmware too, so nothing here applies before flashing.
+
+criteria:
+  works_offline:
+    value: unknown
+    notes: >-
+      No vendor documentation found for this camera's behaviour with the WAN cut; the
+      yi-hack README only describes it after flashing.
+
+  no_account_required:
+    value: unknown
+    notes: >-
+      No vendor documentation found on whether setup needs an account.
+
+  local_api:
+    value: unknown
+    notes: >-
+      No vendor documentation found for a local protocol on the stock firmware.
+
+  cloud_blockable:
+    value: unknown
+    notes: >-
+      No vendor documentation found on whether the camera survives being firewalled.
+
+  local_firmware_updates:
+    value: unknown
+    notes: >-
+      No vendor documentation found on how the stock firmware is updated.
+
+  alternative_firmware:
+    value: true
+    source: https://github.com/roleoroleo/yi-hack-Allwinner-v2
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Listed as "Flood Light Camera Outdoor L850Y-US" with file prefix b091qp in the
+      yi-hack-Allwinner-v2 supported-cameras table.
+
+  ha_local_integration:
+    value: unknown
+    notes: >-
+      No core integration talks to the stock firmware and no ONVIF/RTSP/MQTT is documented
+      as sold; the core `yi` integration is local_polling but requires the custom firmware.
+      See the ha block for what flashing buys.
+
+flashing:
+  supported: true
+  firmwares: [yi-hack]
+  method: sd-card
+  requires_soldering: false
+  difficulty: easy
+  reversible: true
+  guide_url: https://github.com/roleoroleo/yi-hack-Allwinner-v2
+  guide_is_ours: false
+  tier_after_flash: fully-local
+  source: https://github.com/roleoroleo/yi-hack-Allwinner-v2
+  verified_on: 2026-09-22
+  notes: >-
+    Covered by yi-hack-Allwinner-v2 (https://github.com/roleoroleo/yi-hack-Allwinner-v2):
+    firmware 9.0.41; the b091qp build is shared with the BlitzWolf BW-YIC1, ESCAM PT202,
+    YS-QC-02 and Tovendor Mini Smart Home Camera. Yi's own site does not list this
+    floodlight; it is sold on Amazon under the YI IoT name and Yi's community forum handles
+    it as the "YI L850Y Flood light"
+    (https://forum.yitechnology.com/t/yi-l850y-flood-light-security-camera-light-repeatedly-on-and-off/14329).
+    Issue #448 on the project records one unit that did not boot after the first attempt
+    and was recovered from its backup with the project's unbrick wiki, so dump the stock
+    partitions before you start. Install: format the SD card FAT32, unpack the release for
+    your model onto it, insert and reboot. The README lists RTSP, ONVIF and MQTT servers
+    and "the possibility to disable all the cloud features", so the hacked camera can run
+    with no Yi account or cloud. The README states the hack is not a permanent change:
+    remove the SD card and the camera comes back to its original state (the card has to
+    stay in while you use the hack).
+
+offers: []
+
+notes: >-
+  A hard-wired floodlight with a Yi IoT camera inside, driven by the YI IoT / Kami app and
+  Yi's cloud, and Yi's help centre could not be opened to confirm what survives without it,
+  so the verdict stays unverified rather than guessed. The way out is a microSD card: it
+  shares the Allwinner chip and 9.0.41 firmware of the b091qp cameras, so
+  yi-hack-Allwinner-v2 adds RTSP, ONVIF and MQTT and lets you switch the cloud off. Back up
+  the stock firmware first; one owner needed it.
