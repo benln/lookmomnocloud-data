@@ -76,8 +76,8 @@ flashing:
   verified_on: 2026-09-21
   notes: >-
     Rooting voids the warranty and can brick the robot. Valetudo documents the procedure per
-    model and keeps it current - link out, don't restate it. Valetudo flags docking, Wi-Fi and
-    negative-device-ID quirks on newer units.
+    model and keeps it current. Valetudo flags docking, Wi-Fi and negative-device-ID quirks on
+    newer units.
 
 offers: []
 

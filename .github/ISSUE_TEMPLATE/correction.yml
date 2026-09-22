@@ -4,7 +4,7 @@ labels: ["correction", "needs-triage"]
 body:
   - type: markdown
     attributes:
-      value: Corrections are more welcome than additions. Being wrong in public only works if it gets fixed.
+      value: Corrections are more welcome than additions.
   - type: input
     id: entry
     attributes:

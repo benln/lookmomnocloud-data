@@ -70,8 +70,7 @@ criteria:
     verified_on: 2026-09-22
     confidence: vendor_documented
     notes: >-
-      'iot_class: local_polling' - and the docs themselves warn that cloud access is still required,
-      which is exactly why this criterion does not drive the verdict.
+      iot_class is local_polling, and the same docs warn that cloud access is still required.
 
 flashing:
   supported: true
@@ -83,9 +82,9 @@ flashing:
   source: https://valetudo.cloud/pages/general/supported-robots/
   verified_on: 2026-09-21
   notes: >-
-    Rooting voids the warranty and can brick the robot. Valetudo documents the procedure per
-    model and keeps it current - link out, don't restate it. Valetudo warns the S7's VibraRise mop
-    module makes disassembly easy to get wrong.
+    Rooting voids the warranty and can brick the robot. Valetudo documents the procedure per model
+    and keeps it current. Valetudo warns the S7's VibraRise mop module makes disassembly easy to
+    get wrong.
 
 offers: []
 

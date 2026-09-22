@@ -23,20 +23,42 @@ jobs:
           name: dataset-json
           path: dist/dataset.json
 
-  # Tell the private site repo to rebuild, so editing data never means touching the site.
-  # Needs a SITE_DISPATCH_TOKEN secret: a fine-grained token on benln/lookmomnocloud with
-  # Contents: read and write. Missing token = warning, not failure, so forks and PRs stay green.
+  # A data change has to rebuild the site, but the site is already built and deployed by
+  # Cloudflare's Git integration on every push to its repo. So rather than run a second, parallel
+  # deploy from here - a second build path that can drift from the first - we write this dataset's
+  # commit into the site repo and let its existing pipeline do the work.
+  #
+  # The file is also a pin: the site fetches exactly this commit, so a deploy is reproducible and
+  # the site's history records which dataset every release carried.
+  #
+  # Needs SITE_DISPATCH_TOKEN: a fine-grained token on benln/lookmomnocloud, Contents read+write.
+  # Absent, this warns rather than fails, so forks and pull requests stay green.
   notify-site:
     needs: validate
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      - name: Ask the site to rebuild
+      - name: Record this dataset version in the site repo
         env:
-          GH_TOKEN: ${{ secrets.SITE_DISPATCH_TOKEN }}
+          TOKEN: ${{ secrets.SITE_DISPATCH_TOKEN }}
         run: |
-          if [ -z "$GH_TOKEN" ]; then
+          if [ -z "$TOKEN" ]; then
             echo "::warning::SITE_DISPATCH_TOKEN is not set - the site will not rebuild by itself."
             exit 0
           fi
-          gh api repos/benln/lookmomnocloud/dispatches -f event_type=data-updated
+          git clone --quiet --depth 1 \
+            "https://x-access-token:$TOKEN@github.com/benln/lookmomnocloud.git" site
+          cd site
+          echo "$GITHUB_SHA" > .data-version
+          # Stage first: on the very first run the file is untracked, and `git diff` alone
+          # would report no change and skip the commit that sets everything up.
+          git add .data-version
+          if git diff --cached --quiet; then
+            echo "Site already pinned to $GITHUB_SHA - nothing to do."
+            exit 0
+          fi
+          git config user.name "lookmomnocloud-data"
+          git config user.email "noreply@lookmomnocloud.com"
+          git commit --quiet -m "Rebuild against dataset ${GITHUB_SHA:0:7}"
+          git push --quiet
+          echo "Pinned the site to $GITHUB_SHA; Cloudflare will rebuild."

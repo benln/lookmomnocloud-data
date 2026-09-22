@@ -20,7 +20,7 @@ ha:
     device model", home-assistant/core issue 107481) and Tasshack's Dreame component lists
     it as unsupported, since it is not Dreame-built. The xiaomi-vac HACS component lists
     b106bk/eu and offers two setup paths: a Mi account login for cloud-assisted discovery
-    and live maps, or "Local token" - IP and 32-character token - "if you want LAN control
+    and live maps, or "Local token" (IP and 32-character token) "if you want LAN control
     without storing Xiaomi cloud credentials". Either way the token comes from the Mi Home
     account the robot was paired with, and day-to-day control is local MIoT polling
     (manifest iot_class local_polling).

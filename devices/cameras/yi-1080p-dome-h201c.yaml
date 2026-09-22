@@ -105,8 +105,8 @@ offers: []
 notes: >-
   As sold the Yi 1080p Dome is driven entirely by the YI Home / Kami Home app and Yi's
   cloud, and Yi's help centre could not be opened to confirm what survives without it, so
-  the verdict stays unverified rather than guessed. The way out is a microSD card:
-  yi-hack-MStar replaces the stock firmware and adds RTSP, ONVIF and MQTT, lets you switch
-  the cloud off, and Home Assistant then talks to the camera directly. Match the file prefix
-  (h201c) and your serial-number prefix to the project's table before you flash, because the
-  same box ships with several different chips.
+  the verdict stays unverified. The way out is a microSD card: yi-hack-MStar replaces the
+  stock firmware and adds RTSP, ONVIF and MQTT, lets you switch the cloud off, and Home
+  Assistant then talks to the camera directly. Match the file prefix (h201c) and your
+  serial-number prefix to the project's table before you flash, because the same box ships
+  with several different chips.

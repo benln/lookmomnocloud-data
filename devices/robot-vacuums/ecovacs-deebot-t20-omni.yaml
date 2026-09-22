@@ -48,7 +48,7 @@ criteria:
     verified_on: 2026-09-22
     confidence: vendor_documented
     notes: >-
-      "Without internet, there's no app-based control or remote scheduling" - only the button remains.
+      "Without internet, there's no app-based control or remote scheduling". Only the button remains.
   local_firmware_updates:
     value: false
     source: https://help.ecovacs.com/us/support/deebot-t20-omni/faq-detail?id=485&product_id=856

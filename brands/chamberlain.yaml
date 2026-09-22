@@ -15,5 +15,5 @@ local_control_revoked_history:
       source: https://www.home-assistant.io/blog/2023/11/06/removal-of-myq-integration/
       resolved: false
 notes: >-
-  No devices catalogued yet. This entry exists because the brand record is the point:
-  a vendor that has done this once is a different purchase risk from one that has not.
+  No devices catalogued yet. The entry exists for the brand record: a vendor that has
+  done this once is a different purchase risk from one that has not.

@@ -9,10 +9,10 @@ local_control_revoked_history:
   notes: >-
     No documented removal of the local (miio-style) API from sold robots found.
     Roborock has progressively hardened later models against rooting, which is not
-    the same thing as removing local control from hardware already sold - do not
-    conflate the two. The Home Assistant integration still connects locally after a
-    one-time cloud login for the key; the December 2025 breakage reports were on the
-    HA side. Nothing opened establishes false either.
+    the same thing as removing local control from hardware already sold. The Home
+    Assistant integration still connects locally after a one-time cloud login for
+    the key; the December 2025 breakage reports were on the HA side. Nothing opened
+    establishes false either.
 notes: >-
   Roborock robots take local commands once you have the key from a Roborock account.
   The vendor locks down rooting harder each generation, but has not been shown to

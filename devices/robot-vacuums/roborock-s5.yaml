@@ -38,9 +38,8 @@ criteria:
     verified_on: 2026-09-21
     confidence: vendor_documented
     notes: >-
-      'iot_class: local_polling' - and this is exactly why criterion 7 must not drive the
-      verdict. Home Assistant polls the robot locally, yet setting it up still requires a
-      Roborock account. "Local" in HA's sense is not "independent of the vendor".
+      iot_class is local_polling. Home Assistant polls the robot locally, yet setting it
+      up still requires a Roborock account.
 
 flashing:
   supported: true
@@ -53,7 +52,7 @@ flashing:
   verified_on: 2026-09-21
   notes: >-
     Rooting voids the warranty and can brick the robot. Valetudo documents the procedure per
-    model and keeps it current - link out, don't restate it.
+    model and keeps it current.
 
 offers: []
 

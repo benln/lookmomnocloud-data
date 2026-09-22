@@ -66,8 +66,7 @@ flashing:
   verified_on: 2026-09-21
   notes: >-
     Rooting voids the warranty and can brick the robot. Valetudo documents the procedure per
-    model and keeps it current - link out, don't restate it. Valetudo: a 3.3 V USB UART adapter
-    and minimal disassembly.
+    model and keeps it current. Valetudo: a 3.3 V USB UART adapter and minimal disassembly.
 
 offers: []
 

@@ -5,8 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        You do not need to know all eight criteria. Tell us what you know and how you know it —
-        an honest partial entry is worth more than a confident complete one.
+        You do not need to know all eight criteria. Say what you know and how you know it.
   - type: input
     id: brand
     attributes: { label: Brand, placeholder: Reolink }
@@ -42,6 +41,6 @@ body:
     attributes:
       label: How do you know?
       description: |
-        Links to vendor documentation, a forum thread, a teardown — or "I tested it myself", and
-        say what you did. Nothing goes in as `true` or `false` without a source.
+        Links to vendor documentation, a forum thread, a teardown, or "I tested it myself" and
+        what you did. Nothing goes in as `true` or `false` without a source.
     validations: { required: true }

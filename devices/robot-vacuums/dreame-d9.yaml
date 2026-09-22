@@ -75,9 +75,8 @@ flashing:
   source: https://valetudo.cloud/pages/general/supported-robots/
   verified_on: 2026-09-21
   notes: >-
-    Rooting voids the warranty and can brick the robot. Valetudo documents the procedure per
-    model and keeps it current - link out, don't restate it. Valetudo supports only the three-button
-    D9, not the D9 Max.
+    Rooting voids the warranty and can brick the robot. Valetudo documents the procedure per model
+    and keeps it current. Valetudo supports only the three-button D9, not the D9 Max.
 
 offers: []
 

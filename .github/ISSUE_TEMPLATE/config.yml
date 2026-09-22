@@ -5,4 +5,4 @@ contact_links:
     about: Entries are plain YAML with a schema. A pull request is often faster than an issue.
   - name: Something wrong with the website
     url: https://github.com/benln/lookmomnocloud-data/issues/new?template=correction.yml
-    about: Wrong data goes here. Broken pages are handled elsewhere - say so in a correction and it will be routed.
+    about: Wrong data goes here. Broken pages are handled elsewhere. Say so in a correction and it will be routed.

@@ -5,8 +5,8 @@ body:
   - type: markdown
     attributes:
       value: |
-        This is the single most valuable thing you can report here. It is the one criterion no
-        spec sheet carries, and it goes on the brand's permanent record.
+        This is the report that helps most. No spec sheet carries it, and it goes on the
+        brand's record.
   - type: input
     id: brand
     attributes: { label: Brand }

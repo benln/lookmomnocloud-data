@@ -98,7 +98,7 @@ offers: []
 notes: >-
   A hard-wired floodlight with a Yi IoT camera inside, driven by the YI IoT / Kami app and
   Yi's cloud, and Yi's help centre could not be opened to confirm what survives without it,
-  so the verdict stays unverified rather than guessed. The way out is a microSD card: it
-  shares the Allwinner chip and 9.0.41 firmware of the b091qp cameras, so
-  yi-hack-Allwinner-v2 adds RTSP, ONVIF and MQTT and lets you switch the cloud off. Back up
-  the stock firmware first; one owner needed it.
+  so the verdict stays unverified. The way out is a microSD card: it shares the Allwinner
+  chip and 9.0.41 firmware of the b091qp cameras, so yi-hack-Allwinner-v2 adds RTSP, ONVIF
+  and MQTT and lets you switch the cloud off. Back up the stock firmware first; one owner
+  needed it.

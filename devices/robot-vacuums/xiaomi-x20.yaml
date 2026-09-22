@@ -19,10 +19,10 @@ ha:
     Reports as xiaomi.vacuum.c101eu. Not in core xiaomi_miio's vacuum list (Roborock-only)
     and on Tasshack's Dreame component's unsupported list, since it is not Dreame-built. The
     xiaomi-vac HACS component lists c101/eu and offers two setup paths: a Mi account login
-    for cloud-assisted discovery and live maps, or "Local token" - IP and 32-character
-    token - "if you want LAN control without storing Xiaomi cloud credentials". Either way
-    the token comes from the Mi Home account the robot was paired with, and day-to-day
-    control is local MIoT polling (manifest iot_class local_polling).
+    for cloud-assisted discovery and live maps, or "Local token" (IP and 32-character token)
+    "if you want LAN control without storing Xiaomi cloud credentials". Either way the token
+    comes from the Mi Home account the robot was paired with, and day-to-day control is
+    local MIoT polling (manifest iot_class local_polling).
 
 criteria:
   works_offline:
