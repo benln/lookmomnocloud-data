@@ -54,6 +54,10 @@ lets a Chromecast be labelled "local". We show it; we do not let it decide.
 `local_control_revoked_history` is about the vendor's past conduct, not the hardware in the box. It
 is shown as a warning next to the verdict, and it is the reason brand pages exist.
 
+The `ha` block (`route`, `cloud_needed`) does not move the tier either, for the same reason: it
+describes the integration, not the device. A device can be `cloud-required` and still have a
+`core` integration, which is precisely the case worth showing.
+
 ## Flashing
 
 Criteria always describe the device **as sold**. A device you must modify is not a device that

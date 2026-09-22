@@ -28,6 +28,9 @@ Confidence levels, from weakest to strongest:
 | `community_verified` | Someone reported testing it, with a link to the report |
 | `editor_tested` | We ran the test ourselves |
 
+The same rule applies to the `ha` block: `cloud_needed` is an asserted value and needs a `source`
+and a `verified_on`. If you don't know whether the integration phones home, leave it `unknown`.
+
 ## Things that get a pull request closed
 
 - A value changed without its `source` and `verified_on` being updated to match.

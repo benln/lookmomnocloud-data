@@ -36,6 +36,24 @@ Every asserted value carries a source URL, a verification date and a confidence 
 is a first-class answer. Entries not re-checked in 18 months are flagged as needing review on the
 site rather than quietly presented as current.
 
+## The Home Assistant block
+
+The verdict says whether the device needs its vendor. The `ha` block answers the other question
+people actually have: *I already own this - can I get it into Home Assistant, how, and does that
+get me off the vendor's cloud?*
+
+| Key | The question it answers |
+|---|---|
+| `route` | How it gets in: `core`, `hacs`, `generic-protocol` (ONVIF, RTSP, MQTT, Matter), `after-flash`, `none` |
+| `cloud_needed` | What the integration itself needs: `never`, `setup-only` (one vendor login, then local), `always` |
+| `guide_url` | Where the how-to lives. We point, we don't rewrite |
+
+`cloud_needed` is the one to read twice. Home Assistant's Roomba integration is `local_push`, and
+you still fetch the robot's password through iRobot's cloud once. That is `setup-only`, and it is
+the nuance a `local` badge hides. Roborock's is `local_polling` too, and needs the cloud for every
+map: `always`. Like every asserted value it carries a source and a date, and it never moves
+the tier.
+
 ## Machine-readable export
 
 `npm run build` writes `dist/dataset.json` — every device and brand in one file, with `tier`

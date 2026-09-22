@@ -64,18 +64,100 @@
     "ha": {
       "type": "object",
       "additionalProperties": false,
+      "description": "How to get the device into Home Assistant, and what the vendor's cloud has to do with that. Deliberately separate from the verdict: the criteria describe the device, this block describes the integration.",
       "properties": {
         "integration": {
           "type": [
             "string",
             "null"
           ],
-          "description": "Home Assistant integration domain. Joins against home-assistant/core manifests to inherit iot_class."
+          "description": "Home Assistant integration domain (core) or custom component domain (HACS). Joins against home-assistant/core manifests to inherit iot_class."
         },
         "works_with_ha_certified": {
           "type": "boolean"
+        },
+        "route": {
+          "enum": [
+            "core",
+            "hacs",
+            "generic-protocol",
+            "after-flash",
+            "none",
+            "unknown"
+          ],
+          "description": "How it gets in. `core`: a built-in integration. `hacs`: a custom component. `generic-protocol`: no vendor integration needed - ONVIF, RTSP, MQTT, Matter. `after-flash`: only once alternative firmware is on it. `none`: no known route."
+        },
+        "cloud_needed": {
+          "enum": [
+            "never",
+            "setup-only",
+            "always",
+            "unknown"
+          ],
+          "description": "What the integration itself needs from the vendor's cloud. `never`: pure local. `setup-only`: a vendor login once, typically to fetch a local key, then local. `always`: Home Assistant talks to the vendor's servers. This is about the integration; the device's own dependence is in `criteria`."
+        },
+        "guide_url": {
+          "$ref": "#/$defs/https",
+          "description": "Where the how-to lives: the HA docs page, the HACS repository, the Valetudo page. Point by default, write by exception."
+        },
+        "source": {
+          "$ref": "#/$defs/https"
+        },
+        "verified_on": {
+          "type": "string",
+          "format": "date"
+        },
+        "notes": {
+          "type": "string"
         }
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "route"
+            ],
+            "properties": {
+              "route": {
+                "enum": [
+                  "core",
+                  "hacs",
+                  "generic-protocol",
+                  "after-flash"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "guide_url"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "cloud_needed"
+            ],
+            "properties": {
+              "cloud_needed": {
+                "enum": [
+                  "never",
+                  "setup-only",
+                  "always"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "source",
+              "verified_on"
+            ],
+            "description": "`cloud_needed` is an asserted value like any other: it needs a source and a date."
+          }
+        }
+      ]
     },
     "criteria": {
       "$ref": "#/$defs/criteria"
@@ -220,6 +302,8 @@
               "openbeken",
               "valetudo",
               "openipc",
+              "thingino",
+              "yi-hack",
               "custom"
             ]
           }
