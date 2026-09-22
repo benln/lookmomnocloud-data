@@ -22,3 +22,21 @@ jobs:
         with:
           name: dataset-json
           path: dist/dataset.json
+
+  # Tell the private site repo to rebuild, so editing data never means touching the site.
+  # Needs a SITE_DISPATCH_TOKEN secret: a fine-grained token on benln/lookmomnocloud with
+  # Contents: read and write. Missing token = warning, not failure, so forks and PRs stay green.
+  notify-site:
+    needs: validate
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ask the site to rebuild
+        env:
+          GH_TOKEN: ${{ secrets.SITE_DISPATCH_TOKEN }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::warning::SITE_DISPATCH_TOKEN is not set - the site will not rebuild by itself."
+            exit 0
+          fi
+          gh api repos/benln/lookmomnocloud/dispatches -f event_type=data-updated
