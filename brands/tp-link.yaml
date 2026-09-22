@@ -1,0 +1,39 @@
+# yaml-language-server: $schema=../schema/brand.schema.json
+id: tp-link
+name: TP-Link
+website: https://www.tp-link.com/
+country: CN
+local_control_revoked_history:
+  value: true
+  verified_on: 2026-09-22
+  incidents:
+    - date: 2020-11-18
+      summary: >-
+        A firmware update for Kasa HS100/HS110 v4 smart plugs removed the local API
+        on port 9999, breaking Home Assistant and every other local integration.
+        TP-Link first offered case-by-case firmware downgrades, then on 2020-11-26
+        announced beta firmware restoring local API access.
+      source: https://www.home-assistant.io/blog/2020/11/23/tplink-local-access/
+      resolved: true
+    - date: 2025-10-05
+      summary: >-
+        Firmware 1.1.2 on the KP303 v2 and 1.1.6 on the KS220M v1 removed local
+        control. TP-Link's reply was that Home Assistant "is not a supported
+        third-party" and that there is "no guarantee regarding product availability,
+        performance, and stability" on unofficial platforms; local control came back
+        only after enabling a new Third-Party Compatibility toggle in the app.
+      source: https://community.tp-link.com/en/smart-home/forum/topic/843804
+      resolved: true
+  notes: >-
+    Both cuts were reversed, but each time by an opt-in the owner had to discover.
+    Home Assistant's TP-Link docs now warn that newer firmware requires TP-Link cloud
+    credentials even for local access and suggest disabling automatic updates on
+    older devices (https://www.home-assistant.io/integrations/tplink/). Not counted:
+    the Tapo C200 v1 RTSP breakage on firmware 1.3.6 Build 230424 reported in May
+    2023 (https://community.tp-link.com/en/smart-home/forum/topic/610336), which
+    TP-Link never acknowledged as a removal and which looks like a bug tied to SD
+    cards and Tapo Care rather than a policy.
+notes: >-
+  TP-Link has twice shipped firmware that switched off the local API on plugs people
+  already owned, and its official line is that third-party local control is
+  unsupported. It currently works, behind an app toggle and a cloud login.

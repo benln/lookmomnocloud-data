@@ -1,0 +1,100 @@
+# yaml-language-server: $schema=../../schema/device.schema.json
+id: dahua-ipc-hdw3849h-as-pv
+brand: dahua
+model: IPC-HDW3849H-AS-PV
+hardware_revision: S5
+category: cameras
+discontinued: true
+product_url: https://www.dahuasecurity.com/products/discontinued-products/network-cameras/ipc-hdw3849h-as-pv=s5
+
+ha:
+  integration: dahua
+  works_with_ha_certified: false
+  route: hacs
+  cloud_needed: never
+  guide_url: https://github.com/rroller/dahua
+  source: https://github.com/rroller/dahua
+  verified_on: 2026-09-22
+  notes: >-
+    The rroller/dahua custom component talks to the camera's HTTP API and RTSP stream on
+    the LAN and lists the HDW3849HP-AS-PV among tested models, exposing its siren, white
+    light and events. Without HACS, the generic ONVIF integration covers stream and motion.
+
+criteria:
+  works_offline:
+    value: true
+    source: https://dahuawiki.com/Record/Advanced/SD_Card_Record_Setup
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Dahua's wiki documents standalone recording to the camera's SD card with only the
+      camera and local network access as prerequisites.
+
+  no_account_required:
+    value: true
+    source: https://www.dahuasecurity.com/asset/upload/uploads/soft/20181120/Initialization_and_password_reset_for_networking_cameras_V1_EN_20171109.pdf
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Dahua's initialisation guide activates a new camera by setting an admin password
+      from the web UI or ConfigTool on the LAN; no DMSS or cloud account appears in the
+      procedure.
+
+  local_api:
+    value: true
+    source: https://www.dahuasecurity.com/products/discontinued-products/network-cameras/ipc-hdw3849h-as-pv=s5
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      The datasheet lists ONVIF Profile S/G/T and CGI under interoperability and RTSP
+      among the protocols.
+
+  cloud_blockable:
+    value: true
+    source: https://ipcamtalk.com/threads/turn-off-p2p-to-dramatically-reduce-wan-access-attempts.45085/
+    verified_on: 2026-09-22
+    confidence: community_verified
+    notes: >-
+      Report dated 2020-01-21 of Dahua cameras running on an isolated network with no DNS
+      or WAN; the only side effect is blocked outbound attempts, which stop once P2P is
+      switched off under Access Platform.
+
+  local_firmware_updates:
+    value: true
+    source: https://dahuawiki.com/Firmware/Update_Firmware_via_Web_Browser
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Dahua's wiki documents uploading a firmware file in the web UI under Setup > System >
+      Upgrade; the product page hosts the firmware files.
+
+  alternative_firmware:
+    value: false
+    source: https://github.com/OpenIPC/wiki/blob/master/en/guide-supported-devices.md
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      OpenIPC lists a single Dahua model (DH-IPC-C22P), not this one; Thingino lists no
+      Dahua hardware.
+
+  ha_local_integration:
+    value: true
+    source: https://www.home-assistant.io/integrations/onvif/
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      No core Dahua integration; the camera is ONVIF Profile S/T, so the core ONVIF
+      integration (local_push) provides stream and events.
+
+flashing:
+  supported: false
+  notes: OpenIPC lists only the DH-IPC-C22P for Dahua; no port exists for this model.
+
+offers: []
+
+notes: >-
+  The classic Home Assistant turret: set an admin password from its web page, record to
+  the microSD card or an NVR, and drive it over ONVIF, RTSP or Dahua's CGI API. The P2P
+  relay for the DMSS app is the one cloud-facing switch, and it can be turned off. Dahua's
+  global catalogue now files the S4 and S5 revisions under discontinued products while
+  regional sites and retailers still list it; firmware releases continued into 2026.

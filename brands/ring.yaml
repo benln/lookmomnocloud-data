@@ -1,0 +1,18 @@
+# yaml-language-server: $schema=../schema/brand.schema.json
+id: ring
+name: Ring
+website: https://ring.com/
+country: US
+local_control_revoked_history:
+  value: unknown
+  verified_on: 2026-09-22
+  notes: >-
+    No documented case of Ring removing local control, and no documented local
+    control to remove: the Home Assistant docs state that the integration "does not
+    connect locally to devices, all communication goes via the cloud"
+    (https://www.home-assistant.io/integrations/ring/). Never having offered local
+    access is not the same as having revoked it, so this stays unknown rather than
+    false.
+notes: >-
+  Ring devices are cloud-only by design. Nothing to revoke, and nothing that keeps
+  working if Amazon turns the servers off.

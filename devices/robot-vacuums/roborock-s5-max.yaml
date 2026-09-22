@@ -4,21 +4,59 @@ brand: roborock
 model: S5 Max
 hardware_revision: null
 category: robot-vacuums
+product_url: https://us.roborock.com/pages/roborock-s5-max
 
 ha:
   integration: roborock
+  works_with_ha_certified: false
+  route: core
+  cloud_needed: always
+  guide_url: https://www.home-assistant.io/integrations/roborock/
+  source: https://www.home-assistant.io/integrations/roborock/
+  verified_on: 2026-09-22
+  notes: >-
+    Setup needs a Roborock account; commands and polling then go to the robot directly, but the
+    docs say cloud access is still required for it to work: maps and routines are always fetched
+    through the cloud, and the robot blocks its local API whenever it cannot reach Roborock's servers.
 
 criteria:
   works_offline:
-    value: unknown
+    value: true
+    source: https://support.roborock.com/hc/en-us/articles/360030815691-Can-robot-cleaner-work-without-Wi-Fi
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Roborock's FAQ, which lists the S5 Max, says it does full-home and spot cleanups and returns to
+      the dock by button without Wi-Fi; scheduled cleaning and suction selection need the app.
   no_account_required:
-    value: unknown
+    value: false
+    source: https://support.roborock.com/hc/en-us/articles/360030892272-How-do-I-connect-my-robot-cleaner-to-Roborock-app-on-an-Android-device
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Roborock's app-setup guide for the S5 Max has you "register for a Roborock account by your
+      phone number" before the robot can be added.
   local_api:
-    value: unknown
+    value: true
+    source: https://www.home-assistant.io/integrations/roborock/
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Home Assistant "uses local communication for commands and polling"; the protocol is the
+      reverse-engineered python-roborock one, not something Roborock publishes.
   cloud_blockable:
-    value: unknown
+    value: false
+    source: https://www.home-assistant.io/integrations/roborock/
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      "When the vacuum is disconnected from the internet, it blocks its local API until it can
+      reach the Roborock servers."
   local_firmware_updates:
     value: unknown
+    notes: >-
+      Roborock only documents firmware updates through the Roborock or Mi Home app, and the one
+      article found covers the S6 MaxV; no S5 Max-specific statement, and no local update path, found.
   alternative_firmware:
     value: true
     source: https://valetudo.cloud/pages/general/supported-robots/
@@ -26,7 +64,13 @@ criteria:
     confidence: vendor_documented
     notes: Listed as supported by Valetudo.
   ha_local_integration:
-    value: unknown
+    value: true
+    source: https://github.com/home-assistant/core/blob/dev/homeassistant/components/roborock/manifest.json
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      'iot_class: local_polling' - and the docs themselves warn that cloud access is still required,
+      which is exactly why this criterion does not drive the verdict.
 
 flashing:
   supported: true
@@ -39,10 +83,13 @@ flashing:
   verified_on: 2026-09-21
   notes: >-
     Rooting voids the warranty and can brick the robot. Valetudo documents the procedure per
-    model and keeps it current - link out, don't restate it.
+    model and keeps it current - link out, don't restate it. Valetudo notes the S5 Max needs full
+    disassembly.
 
 offers: []
 
 notes: >-
-  Seeded from Valetudo's supported-robots list: the flashing route is sourced, the seven
-  as-shipped criteria are not yet checked. Verdict stays `unverified` until they are.
+  Cut the internet and the S5 Max still cleans, spot-cleans and docks from its buttons, but the
+  app, schedules and every local integration go dark: the robot refuses local commands until it
+  can reach Roborock again. The account is mandatory to pair it at all. The way out is Valetudo,
+  which replaces the cloud entirely but requires taking the robot apart.

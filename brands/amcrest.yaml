@@ -1,0 +1,16 @@
+# yaml-language-server: $schema=../schema/brand.schema.json
+id: amcrest
+name: Amcrest
+website: https://amcrest.com/
+country: US
+local_control_revoked_history:
+  value: unknown
+  verified_on: 2026-09-22
+  notes: >-
+    No documented firmware removal of RTSP, ONVIF or the HTTP API found. Forum
+    reports of ONVIF authentication breaking after updates exist, but none opened
+    here establishes a deliberate removal, and no source establishes continuous
+    availability either.
+notes: >-
+  Amcrest cameras ship with RTSP, ONVIF and a documented HTTP API. No record of
+  any of that being withdrawn, and no record proving it never was.

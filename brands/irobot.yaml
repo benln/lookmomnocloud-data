@@ -1,0 +1,23 @@
+# yaml-language-server: $schema=../schema/brand.schema.json
+id: irobot
+name: iRobot
+website: https://www.irobot.com/
+country: US
+local_control_revoked_history:
+  value: unknown
+  verified_on: 2026-09-22
+  notes: >-
+    iRobot filed for Chapter 11 on 2025-12-14 with a plan for Picea, its contract
+    manufacturer and lender, to take 100% ownership; the announcement promised "no
+    anticipated disruption to its app functionality" or product support
+    (https://media.irobot.com/2025-12-14-iRobot-Announces-Strategic-Transaction-to-Drive-Long-Term-Growth-Plan).
+    Its post-transaction page repeats that there are no planned changes to app
+    functionality and that software updates continue
+    (https://www.irobot.com/en_US/here-to-stay-company-update.html). A bankruptcy is
+    not a revocation; no cut to cloud services or local access has been sourced as
+    of the verification date. Roomba robots have no documented local API, so there is
+    also nothing local on record to have been removed.
+notes: >-
+  Roomba control runs through iRobot's cloud, whose owner changed in 2026. Nothing
+  has been switched off so far, but the brand is a live example of why the eighth
+  criterion exists.

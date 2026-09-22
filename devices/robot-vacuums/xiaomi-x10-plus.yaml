@@ -5,17 +5,44 @@ model: X10 Plus
 hardware_revision: null
 category: robot-vacuums
 
+ha:
+  integration: dreame_vacuum
+  works_with_ha_certified: false
+  route: hacs
+  cloud_needed: setup-only
+  guide_url: https://github.com/Tasshack/dreame-vacuum
+  source: https://raw.githubusercontent.com/Tasshack/dreame-vacuum/dev/custom_components/dreame_vacuum/strings.json
+  verified_on: 2026-09-22
+  notes: >-
+    The X10+ is Dreame-built (dreame.vacuum.p2114a) and is not in core xiaomi_miio's vacuum list.
+    Tasshack's HACS component lists it and has a "Local" mode taking only IP and the 32-character
+    token from the Mi Home account it was paired with; its config flow says maps need the cloud.
+
 criteria:
   works_offline:
     value: unknown
+    notes: >-
+      Xiaomi's X10+ FAQ on mi.com could not be opened and no other vendor statement about running
+      with the internet cut was found.
   no_account_required:
     value: unknown
+    notes: >-
+      Pairing is through the Xiaomi Home app, but every mi.com support article on adding a device
+      refused to load, so the Mi-account requirement is unsourced.
   local_api:
-    value: unknown
+    value: true
+    source: https://raw.githubusercontent.com/Tasshack/dreame-vacuum/dev/docs/supported_devices.md
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Tasshack's integration lists the Mijia X10+ (dreame.vacuum.p2114a) and its "Local" mode
+      drives the robot with IP and token over the miIO/MIoT protocol.
   cloud_blockable:
     value: unknown
+    notes: No source states what the robot does once permanently firewalled from Xiaomi's servers.
   local_firmware_updates:
     value: unknown
+    notes: No Xiaomi statement on how X10+ firmware is delivered could be opened.
   alternative_firmware:
     value: true
     source: https://valetudo.cloud/pages/general/supported-robots/
@@ -24,6 +51,9 @@ criteria:
     notes: Listed as supported by Valetudo.
   ha_local_integration:
     value: unknown
+    notes: >-
+      No core integration; xiaomi_miio's vacuum model list is Roborock-only, so there is no core
+      iot_class to inherit.
 
 flashing:
   supported: true
@@ -36,10 +66,13 @@ flashing:
   verified_on: 2026-09-21
   notes: >-
     Rooting voids the warranty and can brick the robot. Valetudo documents the procedure per
-    model and keeps it current - link out, don't restate it.
+    model and keeps it current - link out, don't restate it. Valetudo: a 3.3 V USB UART adapter
+    and minimal disassembly.
 
 offers: []
 
 notes: >-
-  Seeded from Valetudo's supported-robots list: the flashing route is sourced, the seven
-  as-shipped criteria are not yet checked. Verdict stays `unverified` until they are.
+  A Dreame robot in Xiaomi clothing, which is good news: Valetudo roots it with a UART adapter
+  and little disassembly, and Home Assistant can drive it over the LAN through the Dreame HACS
+  integration once you have its token. Xiaomi itself publishes nothing we could open about what
+  it does without the internet, so as sold it stays unverified.

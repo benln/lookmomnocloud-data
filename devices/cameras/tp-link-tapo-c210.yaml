@@ -1,0 +1,99 @@
+# yaml-language-server: $schema=../../schema/device.schema.json
+id: tp-link-tapo-c210
+brand: tp-link
+model: Tapo C210
+hardware_revision: null
+category: cameras
+product_url: https://www.tapo.com/us/product/smart-camera/tapo-c210/
+
+ha:
+  integration: tplink
+  works_with_ha_certified: false
+  route: core
+  cloud_needed: setup-only
+  guide_url: https://www.home-assistant.io/integrations/tplink/
+  source: https://www.home-assistant.io/integrations/tplink/
+  verified_on: 2026-09-22
+  notes: >-
+    The core TP-Link integration lists the C210 and connects to it locally without going via
+    the TP-Link cloud, but newer Tapo devices need the TP-Link cloud username and password to
+    authenticate that local session, and live view needs the camera account enabled in the
+    Tapo app. The HACS tapo_control integration and the generic ONVIF integration are
+    alternatives that use only the camera account.
+
+criteria:
+  works_offline:
+    value: true
+    source: https://www.tp-link.com/us/support/faq/2742/
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      TP-Link states the live feed works without internet when phone and camera share a
+      network, and SD card recording and playback continue; notifications and cloud features do not.
+
+  no_account_required:
+    value: false
+    source: https://www.tp-link.com/us/support/faq/2710/
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Setup is done in the Tapo app after logging in with a TP-Link ID ("tap Sign Up to
+      create one"); the initial configuration also requires a network connection.
+
+  local_api:
+    value: true
+    source: https://www.tp-link.com/us/support/faq/2680/
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      TP-Link documents RTSP (rtsp://user:pass@IP/stream1) and ONVIF for the C210 using a
+      camera account created in the Tapo app; the product page lists RTSP and ONVIF as "Yes".
+
+  cloud_blockable:
+    value: true
+    source: https://www.tp-link.com/us/support/faq/2742/
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Once configured, local live view, SD recording and playback continue without internet;
+      TP-Link staff add that timestamps stop syncing and cloud features fail
+      (https://community.tp-link.com/en/smart-home/forum/topic/539338).
+
+  local_firmware_updates:
+    value: false
+    source: https://www.tp-link.com/us/support/faq/2621/
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Firmware is updated only through the Tapo app while logged in to the TP-Link account,
+      "not via a web browser or any other method"; no file upload exists.
+
+  alternative_firmware:
+    value: false
+    source: https://raw.githubusercontent.com/themactep/thingino-firmware/master/docs/hardware/supported-hardware.md
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Thingino lists only the Tapo C100 v5 from this range, not the C210; OpenIPC's SoC list
+      has no Tapo entry.
+
+  ha_local_integration:
+    value: true
+    source: https://www.home-assistant.io/integrations/tplink/
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      The core tplink integration (iot_class local_polling) lists the C210 and "connects
+      locally to the devices without going via the TP-Link cloud".
+
+flashing:
+  supported: false
+
+offers: []
+
+notes: >-
+  Once it is set up, cut the internet and the C210 keeps working on the LAN: live view in
+  the app on the same network, RTSP/ONVIF to an NVR or Home Assistant, recording and playback
+  from the microSD card. The catch is the front door: first setup needs a TP-Link ID and an
+  internet connection, and firmware only ever arrives through the app. Create the separate
+  camera account before the cloud goes away, because that is what every local client uses.

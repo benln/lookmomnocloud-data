@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=../schema/brand.schema.json
+id: kami
+name: Kami
+website: https://kamihome.com/
+country: null
+local_control_revoked_history:
+  value: unknown
+  verified_on: 2026-09-22
+  notes: >-
+    No documented removal of local control from already-sold hardware found, and no evidence
+    either way was checked in depth.
+
+notes: >-
+  Kami is Yi Technology's newer consumer brand; the cameras use the same Kami Home / YI Home
+  app and cloud as the Yi-branded ones, and some run the yi-hack firmware.

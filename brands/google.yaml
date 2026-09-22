@@ -1,0 +1,42 @@
+# yaml-language-server: $schema=../schema/brand.schema.json
+id: google
+name: Google
+website: https://home.google.com/
+country: US
+local_control_revoked_history:
+  value: true
+  verified_on: 2026-09-22
+  incidents:
+    - date: 2019-05-07
+      summary: >-
+        Google announced the end of the Works with Nest programme and the Nest API,
+        the only third-party route to Nest devices. After the backlash it kept
+        existing connections alive but stopped accepting new ones on 2019-08-31,
+        so a device already owned could no longer be linked to a new Home Assistant
+        install.
+      source: https://www.home-assistant.io/blog/2019/05/08/nest-data-bye-bye/
+      resolved: false
+    - date: 2023-09-29
+      summary: >-
+        All remaining Works with Nest connections were switched off. Google's own
+        support page states that as of this date WWN connections no longer work;
+        the replacement (SDM API via Works with Google Home) is cloud-only and
+        requires migrating to a Google account.
+      source: https://support.google.com/googlenest/answer/9293712?hl=en-CA
+      resolved: false
+    - date: 2025-10-25
+      summary: >-
+        1st and 2nd generation Nest Learning Thermostats were unpaired from the
+        Nest and Home apps. Remote control, third-party assistants, Home/Away
+        Assist and multi-device Eco control were removed; only on-device control
+        and the local schedule keep working.
+      source: https://support.google.com/googlenest/answer/16233096?hl=en-GB
+      resolved: false
+  notes: >-
+    Nest hardware never had a local API, so what Google withdrew each time was
+    third-party and remote access to devices people already owned. That is what this
+    criterion records: three dated cuts, none reversed.
+notes: >-
+  Google has shut down the third-party API for owned Nest devices twice (2019, 2023)
+  and cut app control for the original Nest thermostats in 2025. Everything that
+  remains goes through Google's cloud and a Google account.

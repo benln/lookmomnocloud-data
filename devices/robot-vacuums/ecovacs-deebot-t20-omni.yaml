@@ -1,0 +1,83 @@
+# yaml-language-server: $schema=../../schema/device.schema.json
+id: ecovacs-deebot-t20-omni
+brand: ecovacs
+model: DEEBOT T20 OMNI
+hardware_revision: null
+category: robot-vacuums
+product_url: https://www.ecovacs.com/us/deebot-robotic-vacuum-cleaner/deebot-t20-omni
+
+ha:
+  integration: ecovacs
+  works_with_ha_certified: false
+  route: core
+  cloud_needed: always
+  guide_url: https://www.home-assistant.io/integrations/ecovacs/
+  source: https://www.home-assistant.io/integrations/ecovacs/
+  verified_on: 2026-09-22
+  notes: >-
+    Home Assistant logs in with your Ecovacs account and talks to Ecovacs' servers (cloud_push).
+    The docs offer a self-hosted alternative, Bumper, which impersonates Ecovacs' cloud on your
+    LAN; the T20 OMNI is not on Bumper's tested list.
+
+criteria:
+  works_offline:
+    value: true
+    source: https://www.ecovacs.com/us/blog/robot-vacuum-without-wifi
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Ecovacs says the robot's button starts and pauses a cleaning cycle without Wi-Fi, but
+      "without a connection, you must manually start the vacuum each time"; generic to DEEBOTs,
+      no T20-specific statement on schedules surviving a WAN cut was found.
+  no_account_required:
+    value: false
+    source: https://help.ecovacs.com/us/support/faq-detail?id=115
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Ecovacs' app-connection FAQ: "enter your email address and password to create an ECOVACS
+      account" before the robot can be added.
+  local_api:
+    value: unknown
+    notes: >-
+      Control goes through Ecovacs' MQTT servers and the only local route (Bumper) works by
+      impersonating those servers, but no source states outright that the robot has no local API.
+  cloud_blockable:
+    value: false
+    source: https://www.ecovacs.com/us/blog/robot-vacuum-without-wifi
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      "Without internet, there's no app-based control or remote scheduling" - only the button remains.
+  local_firmware_updates:
+    value: false
+    source: https://help.ecovacs.com/us/support/deebot-t20-omni/faq-detail?id=485&product_id=856
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      The T20 OMNI firmware FAQ requires the robot to be connected to the ECOVACS HOME app with good
+      Wi-Fi, and "if automatic update is enabled, DEEBOT will automatically update".
+  alternative_firmware:
+    value: false
+    source: https://valetudo.cloud/pages/general/supported-robots/
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: No Ecovacs model appears on Valetudo's supported-robots list.
+  ha_local_integration:
+    value: false
+    source: https://github.com/home-assistant/core/blob/dev/homeassistant/components/ecovacs/manifest.json
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: 'iot_class: cloud_push'
+
+flashing:
+  supported: false
+  notes: No alternative firmware project lists any Ecovacs robot.
+
+offers: []
+
+notes: >-
+  Everything beyond the button on top goes through Ecovacs' servers: the app, schedules, maps
+  and the Home Assistant integration all stop the day those servers do. There is no supported
+  flashing route. The only escape is Bumper, a community reimplementation of Ecovacs' cloud that
+  you run at home and redirect the robot to by DNS, and this model has not been reported working on it.

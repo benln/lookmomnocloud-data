@@ -1,0 +1,114 @@
+# yaml-language-server: $schema=../../schema/device.schema.json
+id: wyze-cam-v3
+brand: wyze
+model: Cam v3
+hardware_revision: null
+category: cameras
+released: 2020
+discontinued: true
+product_url: https://www.wyze.com/products/wyze-cam-v3
+
+ha:
+  integration: null
+  works_with_ha_certified: false
+  route: after-flash
+  cloud_needed: never
+  guide_url: https://github.com/wltechblog/thingino-installers/tree/main/wyze-cam-3
+  source: https://www.home-assistant.io/integrations/onvif/
+  verified_on: 2026-09-22
+  notes: >-
+    No core integration and no local protocol on stock firmware. After flashing Thingino the
+    camera speaks ONVIF/RTSP and the core ONVIF integration (Local Push) needs no vendor at
+    all. Without flashing, the docker-wyze-bridge Home Assistant add-on
+    (https://github.com/mrlt8/docker-wyze-bridge) turns the cameras into local RTSP/WebRTC
+    streams but needs a Wyze login plus an API key, and its README warns streams will
+    probably stop after some time without the cloud.
+
+criteria:
+  works_offline:
+    value: false
+    source: https://support.wyze.com/hc/en-us/articles/360051120111-Can-I-use-Wyze-Cam-v3-without-Wi-Fi
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Wyze states that offline the camera "can only record to a microSD card"; live view,
+      motion and sound detection, notifications and settings all require the connection, and
+      the app cannot reach the camera on the LAN.
+
+  no_account_required:
+    value: false
+    source: https://support.wyze.com/hc/en-us/articles/360032748451-Wyze-App-Setup-Guide
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Setup is done in the Wyze app after "Create a Wyze account, and/or sign in".
+
+  local_api:
+    value: false
+    source: https://support.wyze.com/hc/en-us/articles/360051619871-Does-Wyze-Cam-v3-support-RTSP
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Stock firmware has no RTSP; it required a separate beta firmware flashed from microSD,
+      and Wyze says it has "removed the firmware files for these versions for now".
+
+  cloud_blockable:
+    value: false
+    source: https://support.wyze.com/hc/en-us/articles/360051120111-Can-I-use-Wyze-Cam-v3-without-Wi-Fi
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Blocked from Wyze's servers the camera only writes to its microSD card; it cannot be
+      viewed or configured until it reconnects.
+
+  local_firmware_updates:
+    value: true
+    source: https://support.wyze.com/hc/en-us/articles/360031490871-How-to-flash-your-Wyze-Cam-firmware-manually
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Wyze documents manual flashing of the v3 from a microSD card, and Automatic Update can
+      be toggled off in the app
+      (https://support.wyze.com/hc/en-us/articles/20367091002523-How-do-I-manage-automatic-firmware-updates-on-Wyze-Cam-v3).
+
+  alternative_firmware:
+    value: true
+    source: https://raw.githubusercontent.com/themactep/thingino-firmware/master/docs/hardware/supported-hardware.md
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: Listed as "Wyze Cam v3" on the Thingino supported hardware list (T31X SoC).
+
+  ha_local_integration:
+    value: unknown
+    notes: >-
+      No core integration, and the stock firmware exposes no ONVIF/RTSP, so there is no
+      documented generic route as sold. See the ha block for what flashing buys.
+
+flashing:
+  supported: true
+  firmwares: [thingino, custom]
+  method: sd-card
+  requires_soldering: false
+  difficulty: easy
+  reversible: true
+  guide_url: https://github.com/wltechblog/thingino-installers/tree/main/wyze-cam-3
+  guide_is_ours: false
+  tier_after_flash: fully-local
+  source: https://raw.githubusercontent.com/themactep/thingino-firmware/master/docs/hardware/supported-hardware.md
+  verified_on: 2026-09-22
+  notes: >-
+    The Thingino installer is written to a microSD card, backs up the stock firmware
+    (combined_backup.bin) on first boot and documents how to restore it. The other route is
+    wz_mini_hacks (https://github.com/gtxaspec/wz_mini_hacks), which stays on stock firmware
+    and adds RTSP via go2rtc from the card, but its RTSP only works on firmware up to
+    4.36.9.139 (https://github.com/gtxaspec/wz_mini_hacks/wiki/Firmware-Support).
+
+offers: []
+
+notes: >-
+  As sold, the Cam v3 is blind without Wyze: it keeps writing to its microSD card, but you
+  cannot watch it, get alerts or change a setting until it talks to Wyze's servers again, and
+  the official RTSP firmware has been pulled. The way out is real and cheap: a microSD card
+  with Thingino turns it into a plain ONVIF/RTSP camera with no account, and the installer
+  keeps a backup so you can go back. Turn off Automatic Update first if you plan to use
+  wz_mini_hacks, which needs older firmware.

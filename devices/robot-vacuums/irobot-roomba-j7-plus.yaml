@@ -1,0 +1,90 @@
+# yaml-language-server: $schema=../../schema/device.schema.json
+id: irobot-roomba-j7-plus
+brand: irobot
+model: Roomba j7+
+hardware_revision: null
+category: robot-vacuums
+released: 2021
+product_url: https://www.irobot.com/en_US/roomba-j7plus-self-emptying-robot-vacuum/J755020.html
+
+ha:
+  integration: roomba
+  works_with_ha_certified: false
+  route: core
+  cloud_needed: setup-only
+  guide_url: https://www.home-assistant.io/integrations/roomba/
+  source: https://www.home-assistant.io/integrations/roomba/
+  verified_on: 2026-09-22
+  notes: >-
+    The integration speaks to the robot's own MQTT server on the LAN (local_push), but for the j7
+    the docs say the library cannot pull the password locally and it must be retrieved from the
+    cloud with dorita980 and your iRobot account. After that, nothing goes through iRobot.
+
+criteria:
+  works_offline:
+    value: true
+    source: https://ondersteuning.irobot.nl/articles/en_US/Knowledge/26550
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      iRobot: "a Wi-Fi or App connection is not required for Roomba and Braava jet to clean";
+      Clean, Dock and Spot Clean work from the robot, app scheduling does not.
+  no_account_required:
+    value: false
+    source: https://support.irobot.de/articles/en_US/Knowledge/331
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      "An iRobot account is required to utilize the digital features in the iRobot Home App for
+      our connected products."
+  local_api:
+    value: true
+    source: https://github.com/home-assistant/core/blob/dev/homeassistant/components/roomba/manifest.json
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Home Assistant's integration is local_push over the robot's MQTT server; the protocol is
+      documented by the community dorita980 project, not by iRobot.
+  cloud_blockable:
+    value: true
+    source: https://github.com/koalazak/dorita980
+    verified_on: 2026-09-22
+    confidence: community_verified
+    notes: >-
+      dorita980 sends commands "directly over wifi to your robot", says no internet connection is
+      needed, and recommends blocking the robot's internet access to stop OTA updates; fetch the
+      j7's password from the cloud before you do.
+  local_firmware_updates:
+    value: false
+    source: https://support.irobot.de/articles/en_US/Knowledge/550
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      "A Wi-Fi connected robot will automatically update its software if a new version is
+      available when it's connected to ... the internet"; no manual or local path and no opt-out.
+  alternative_firmware:
+    value: false
+    source: https://valetudo.cloud/pages/general/supported-robots/
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: No iRobot model appears on Valetudo's supported-robots list.
+  ha_local_integration:
+    value: true
+    source: https://github.com/home-assistant/core/blob/dev/homeassistant/components/roomba/manifest.json
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: 'iot_class: local_push'
+
+flashing:
+  supported: false
+  notes: No alternative firmware project lists any iRobot robot.
+
+offers: []
+
+notes: >-
+  The j7+ is the odd one out: the robot runs its own MQTT server, so once you have its BLID and
+  password Home Assistant controls it entirely on the LAN and you can firewall it for good. The
+  catch is getting that password, which for the j7 means an iRobot account and a cloud fetch, and
+  updates that only ever arrive from iRobot. iRobot filed for Chapter 11 on 14 December 2025
+  (SEC 8-K: https://www.sec.gov/Archives/edgar/data/1159167/000119312525318337/d97115d8k.htm),
+  which makes the local route worth setting up now.

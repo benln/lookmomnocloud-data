@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=../schema/brand.schema.json
+id: eufy
+name: Eufy (Anker)
+website: https://www.eufy.com/
+country: CN
+local_control_revoked_history:
+  value: unknown
+  verified_on: 2026-09-22
+  notes: >-
+    Two candidates reviewed, neither asserted. The November 2022 controversy
+    (https://9to5google.com/2022/12/01/eufy-camera-cloud-security-leak/) showed
+    cameras sold as local-only uploading thumbnails and face data to the cloud and
+    exposing unauthenticated streams; that is hidden cloud dependence, not the
+    removal of a local feature. A Homebase 3 firmware pushed on 2026-03-14 stopped
+    RTSP on connected S300 and S220 cameras and was still broken on 3.8.7.4 in
+    September 2026 (https://community.eufy.com/t/homebase-3-no-rtsp-streams-after-firmwareupdate/5792653),
+    but eufy has neither acknowledged nor announced a removal, so it is recorded here
+    as an unfixed regression rather than a revocation.
+notes: >-
+  eufy sells "local storage" cameras whose app, setup and remote access still run
+  through Anker's cloud. RTSP exists on some models and has broken after firmware
+  updates without explanation.

@@ -1,0 +1,19 @@
+# yaml-language-server: $schema=../schema/brand.schema.json
+id: ubiquiti
+name: Ubiquiti
+website: https://ui.com/
+country: US
+local_control_revoked_history:
+  value: unknown
+  verified_on: 2026-09-22
+  notes: >-
+    Community reports say modern UniFi Protect cameras no longer expose an RTSP
+    stream directly and need Protect or a config hack to be used elsewhere
+    (https://community.home-assistant.io/t/unifi-cameras-without-unifi-protect-solved/904420),
+    but no opened source shows a dated firmware that removed RTSP or standalone mode
+    from a camera that shipped with it. UniFi Protect itself still re-streams RTSP
+    locally. Unknown until a changelog or announcement can be cited.
+notes: >-
+  UniFi Protect runs on your own hardware and streams locally, but the cameras are
+  tied to Protect and a ui.com account is pushed hard during setup. Whether Ubiquiti
+  has ever removed local access from sold cameras is not sourced.

@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=../schema/brand.schema.json
+id: arlo
+name: Arlo
+website: https://www.arlo.com/
+country: US
+local_control_revoked_history:
+  value: unknown
+  verified_on: 2026-09-22
+  notes: >-
+    Arlo's end-of-life policy (effective 2023-01-01) ended cloud storage, firmware
+    updates and email notifications for the VMC3030 and VMC4030 on 2023-07-01 and
+    for Pro 2, Q, Q+, Baby, Lights and Audio Doorbell on 2025-01-01
+    (https://kb.arlo.com/000063018/End-of-Life-for-Arlo-Legacy-Cameras-and-Arlo-Services).
+    The same page says EOL cameras can still live stream and record locally to a
+    base station, so this is a cloud-service sunset, not a removal of local control.
+    Arlo has no documented local API, and "never had it" is not "removed it", hence
+    unknown.
+notes: >-
+  Arlo is cloud-first and has a published schedule for cutting cloud services on
+  older cameras. Local recording to a base station survived those cuts, for the
+  models that had one.

@@ -1,10 +1,10 @@
 # yaml-language-server: $schema=../../schema/device.schema.json
-id: reolink-rlc-811a
+id: reolink-video-doorbell-poe
 brand: reolink
-model: RLC-811A
+model: Video Doorbell PoE
 hardware_revision: null
-category: cameras
-product_url: https://reolink.com/product/rlc-811a/
+category: video-doorbells
+product_url: https://reolink.com/product/reolink-video-doorbell-poe/
 
 ha:
   integration: reolink
@@ -15,20 +15,19 @@ ha:
   source: https://www.home-assistant.io/integrations/reolink/
   verified_on: 2026-09-22
   notes: >-
-    The integration logs in to the camera itself with its local admin credentials, not a
-    Reolink cloud account, and the docs say it keeps working with the camera's internet
-    access blocked. The RLC-811A is on the tested-models list but is not one of the models
-    certified under Works with Home Assistant.
+    Same local integration as Reolink cameras: device credentials, no cloud account, keeps
+    working with internet blocked. The PoE doorbell is on the tested list; only the Wi-Fi
+    and battery doorbells carry the Works with Home Assistant certification.
 
 criteria:
   works_offline:
     value: true
-    source: https://support.reolink.com/articles/900000599163-Can-Reolink-PoE-Cameras-and-PoE-NVRs-Work-Without-Internet/
+    source: https://reolink.com/product/reolink-video-doorbell-poe/
     verified_on: 2026-09-22
     confidence: vendor_documented
     notes: >-
-      Reolink states PoE cameras keep live view on the LAN, recording to the SD card and
-      local playback without internet; only push, email and remote access stop.
+      Reolink's product FAQ says that without an internet connection the doorbell still
+      detects motion/people and records to the SD card, but cannot send alerts to phones.
 
   no_account_required:
     value: true
@@ -36,8 +35,8 @@ criteria:
     verified_on: 2026-09-22
     confidence: vendor_documented
     notes: >-
-      Reolink's account FAQ says you can configure and use the camera without registering
-      a Reolink account; the account is only for cloud storage and smart-home features.
+      Reolink's account FAQ says a Reolink account is only needed for cloud storage and
+      smart-home features, not to configure and use the device.
 
   local_api:
     value: true
@@ -45,8 +44,8 @@ criteria:
     verified_on: 2026-09-22
     confidence: vendor_documented
     notes: >-
-      Reolink's protocol table lists the RLC-811A with CGI, RTSP and ONVIF supported
-      standalone.
+      Reolink's protocol table lists the Doorbell PoE with CGI, RTSP and ONVIF supported
+      standalone; the product page also lists RTSP, RTMP and ONVIF.
 
   cloud_blockable:
     value: true
@@ -63,17 +62,15 @@ criteria:
     verified_on: 2026-09-22
     confidence: vendor_documented
     notes: >-
-      A downloaded .pak file is uploaded through the web UI or desktop client under
-      System > Maintenance > Firmware Update; auto-update is a separate setting you enable.
+      Manual .pak upload through the web UI or desktop client under System > Maintenance >
+      Firmware Update; auto-update is an opt-in setting.
 
   alternative_firmware:
     value: false
     source: https://github.com/OpenIPC/wiki/blob/master/en/guide-supported-devices.md
     verified_on: 2026-09-22
     confidence: vendor_documented
-    notes: >-
-      Not on OpenIPC's supported-devices list (nor on Thingino's camera list); OpenIPC
-      lists no Reolink hardware at all.
+    notes: Not on OpenIPC's supported-devices list nor on Thingino's camera list.
 
   ha_local_integration:
     value: true
@@ -84,12 +81,12 @@ criteria:
 
 flashing:
   supported: false
-  notes: No OpenIPC or Thingino port is listed for this camera.
+  notes: No OpenIPC or Thingino port is listed for this doorbell.
 
 offers: []
 
 notes: >-
-  Cut the internet and this camera carries on: live view over the LAN, recording to its
-  microSD card or a Reolink NVR, ONVIF and RTSP for whatever NVR software you run. You
-  lose push notifications and viewing from outside the house. No Reolink account is needed
-  at any point; firmware comes as a .pak file you upload yourself.
+  With the internet gone the doorbell still rings its chime, detects people and records
+  to its microSD card or a Reolink NVR, and its RTSP/ONVIF stream keeps feeding whatever
+  you point at it. What you lose is the phone notification and answering from outside
+  the house. No Reolink account is needed; firmware is a .pak file you upload yourself.

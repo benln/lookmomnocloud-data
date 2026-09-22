@@ -1,0 +1,93 @@
+# yaml-language-server: $schema=../../schema/device.schema.json
+id: ring-video-doorbell-2nd-gen
+brand: ring
+model: Video Doorbell (2nd Gen)
+hardware_revision: null
+category: video-doorbells
+released: 2020
+product_url: https://ring.com/support/products/doorbells/video-doorbell-gen-2
+
+ha:
+  integration: ring
+  works_with_ha_certified: false
+  route: core
+  cloud_needed: always
+  guide_url: https://www.home-assistant.io/integrations/ring/
+  source: https://www.home-assistant.io/integrations/ring/
+  verified_on: 2026-09-22
+  notes: >-
+    The core integration logs in with the Ring account and polls the Ring cloud API every
+    60 seconds; the docs state it does not connect locally to devices at all. Nothing stays
+    local.
+
+criteria:
+  works_offline:
+    value: false
+    source: https://ring.com/support/articles/uii72/fixing-offline-devices
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Ring's support article says an offline device cannot show live video, send alerts or
+      record events; the doorbell has no local storage.
+
+  no_account_required:
+    value: false
+    source: https://ring.com/support/articles/3biac/creating-a-ring-account
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Setup happens in the Ring app, whose sign-in page requires creating a Ring account first.
+
+  local_api:
+    value: false
+    source: https://www.home-assistant.io/integrations/ring/
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      The Home Assistant docs state the Ring integration does not connect locally to devices
+      and all communication goes via the cloud; Ring publishes no RTSP/ONVIF/local HTTP interface.
+
+  cloud_blockable:
+    value: false
+    source: https://ring.com/support/articles/uii72/fixing-offline-devices
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Firewalled from Ring's servers the doorbell is "offline": no live view, no alerts, no
+      recording, per Ring's support article.
+
+  local_firmware_updates:
+    value: false
+    source: https://ring.com/us/en/support/articles/il7n0/How-Firmware-Works-in-Ring-Devices
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Ring states firmware is applied automatically at setup and thereafter; no manual or
+      offline update path is documented.
+
+  alternative_firmware:
+    value: false
+    source: https://raw.githubusercontent.com/themactep/thingino-firmware/master/docs/hardware/supported-hardware.md
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      No Ring hardware appears on the Thingino supported list, and OpenIPC's supported SoC
+      list has no Ring entry either.
+
+  ha_local_integration:
+    value: false
+    source: https://github.com/home-assistant/core/blob/dev/homeassistant/components/ring/manifest.json
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: 'iot_class: cloud_polling'
+
+flashing:
+  supported: false
+
+offers: []
+
+notes: >-
+  Without internet the button still rings a wired mechanical chime, and that is all: Ring
+  says offline devices cannot show live view, alert or record, and there is no card slot.
+  The Ring account is the only way to set it up, view it or update it, and Home Assistant
+  only reaches it through Ring's cloud. No way out short of replacing the hardware.

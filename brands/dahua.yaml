@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=../schema/brand.schema.json
+id: dahua
+name: Dahua
+website: https://www.dahuasecurity.com/
+country: CN
+local_control_revoked_history:
+  value: unknown
+  verified_on: 2026-09-22
+  notes: >-
+    No documented removal of RTSP, ONVIF or the local HTTP API from sold hardware
+    found; nor a source establishing that local access was never touched. Left
+    unknown rather than guessed.
+notes: >-
+  Dahua cameras and NVRs expose RTSP, ONVIF and a local API by default. Nothing
+  sourced either way on the vendor's history of removing them.

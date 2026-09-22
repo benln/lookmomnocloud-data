@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=../schema/brand.schema.json
+id: blitzwolf
+name: BlitzWolf
+website: https://www.blitzwolf.com/
+country: null
+local_control_revoked_history:
+  value: unknown
+  verified_on: 2026-09-22
+  notes: >-
+    No documented removal of local control from already-sold hardware found, and no evidence
+    either way was checked in depth.
+
+notes: >-
+  Catalogued only because the BW-YIC1 runs yi-hack-Allwinner-v2; nothing else assessed yet.

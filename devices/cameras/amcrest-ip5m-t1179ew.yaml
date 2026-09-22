@@ -1,0 +1,97 @@
+# yaml-language-server: $schema=../../schema/device.schema.json
+id: amcrest-ip5m-t1179ew
+brand: amcrest
+model: IP5M-T1179EW
+hardware_revision: null
+category: cameras
+product_url: https://amcrest.com/5mp-poe-camera-turret-ip5m-t1179ew-ai-v3.html
+
+ha:
+  integration: amcrest
+  works_with_ha_certified: false
+  route: core
+  cloud_needed: never
+  guide_url: https://www.home-assistant.io/integrations/amcrest/
+  source: https://www.home-assistant.io/integrations/amcrest/
+  verified_on: 2026-09-22
+  notes: >-
+    YAML-configured with the camera's IP, username and password; Home Assistant polls the
+    camera's HTTP API and pulls the RTSP stream directly. No Amcrest account is involved.
+    The generic ONVIF integration is the alternative route.
+
+criteria:
+  works_offline:
+    value: true
+    source: https://ipcamtalk.com/threads/how-to-install-amcrest-ip5m-t1179e-with-no-internet.66755/
+    verified_on: 2026-09-22
+    confidence: community_verified
+    notes: >-
+      Thread dated 2022-11-13: an owner walks through setting up an IP5M-T1179E with no
+      internet at all (reset, IP Config Tool, web UI, static IP, live stream); another
+      reports two years of running one into Blue Iris the same way.
+
+  no_account_required:
+    value: true
+    source: https://support.amcrest.com/hc/en-us/articles/360037718891-User-Manual-IP5M-T1179EW-28MM
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      The user manual documents first login over the local web UI with the camera's own
+      admin credentials; the Amcrest Cloud account is one optional setup path among
+      several (web UI, Amcrest View Pro, Surveillance Pro).
+
+  local_api:
+    value: true
+    source: https://support.amcrest.com/hc/en-us/articles/360001080552-Amcrest-HTTP-API-SDK
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Amcrest publishes its HTTP API SDK (HTTP_API_V3.26.pdf) for its IP cameras; the user
+      manual also documents the ONVIF setting and RTSP is the HA stream source.
+
+  cloud_blockable:
+    value: true
+    source: https://support.amcrest.com/hc/en-us/articles/360037718891-User-Manual-IP5M-T1179EW-28MM
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      The manual documents P2P (the relay used by the Amcrest apps and cloud) as an
+      Enable checkbox, on by default, that can be switched off; nothing else in the camera
+      depends on Amcrest's servers.
+
+  local_firmware_updates:
+    value: true
+    source: https://support.amcrest.com/hc/en-us/articles/22063395411725-How-To-Upgrade-Firmware
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      A .bin file downloaded from amcrest.com/firmware is uploaded in the web UI under
+      Setup > System > Upgrade; Amcrest states firmware cannot be updated through its apps.
+
+  alternative_firmware:
+    value: false
+    source: https://github.com/OpenIPC/wiki/blob/master/en/guide-supported-devices.md
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: Not on OpenIPC's supported-devices list nor on Thingino's camera list.
+
+  ha_local_integration:
+    value: true
+    source: https://github.com/home-assistant/core/blob/dev/homeassistant/components/amcrest/manifest.json
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: 'iot_class: local_polling'
+
+flashing:
+  supported: false
+  notes: No OpenIPC or Thingino port is listed for this camera.
+
+offers: []
+
+notes: >-
+  A plain PoE camera in the Dahua mould: you set it up from its web page with its own
+  admin password, it records to its microSD card, a NAS or an NVR, and ONVIF/RTSP plus a
+  published HTTP API do the rest. Amcrest Cloud and the phone app's P2P relay are
+  optional and the P2P switch can be turned off. Amcrest sells this camera in two
+  revisions (the original -28MM and the current -AI-V3); the vendor documents cited
+  above span both.

@@ -1,0 +1,92 @@
+# yaml-language-server: $schema=../../schema/device.schema.json
+id: ubiquiti-unifi-g4-bullet
+brand: ubiquiti
+model: UniFi Protect G4 Bullet (UVC-G4-BULLET)
+hardware_revision: null
+category: cameras
+product_url: https://store.ui.com/us/en/products/uvc-g4-bullet
+
+ha:
+  integration: unifiprotect
+  works_with_ha_certified: false
+  route: core
+  cloud_needed: never
+  guide_url: https://www.home-assistant.io/integrations/unifiprotect/
+  source: https://www.home-assistant.io/integrations/unifiprotect/
+  verified_on: 2026-09-22
+  notes: >-
+    Home Assistant connects to the UniFi OS console running Protect by its LAN IP with a
+    local console user; the docs state Ubiquiti SSO cloud users will not work. The camera
+    is never talked to directly, only through the console.
+
+criteria:
+  works_offline:
+    value: true
+    source: https://help.ui.com/hc/en-us/articles/28457353760919-UniFi-Local-Management
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Ubiquiti documents local management for internet outages and fully air-gapped
+      deployments, and states that all Protect recordings are stored on the console.
+
+  no_account_required:
+    value: true
+    source: https://help.ui.com/hc/en-us/articles/4416276882327-How-to-Set-Up-UniFi
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      The console setup wizard describes the UI Account as optional (recommended for
+      remote access and cloud backups); the camera itself is adopted by the console.
+
+  local_api:
+    value: true
+    source: https://www.home-assistant.io/integrations/unifiprotect/
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      The camera has no API of its own; the Protect console exposes the local Protect API
+      (and RTSP re-streams) that Home Assistant and other clients use over the LAN.
+
+  cloud_blockable:
+    value: true
+    source: https://help.ui.com/hc/en-us/articles/28457353760919-UniFi-Local-Management
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Ubiquiti documents a fully air-gapped setup without any cloud management as a
+      supported way to run UniFi and Protect.
+
+  local_firmware_updates:
+    value: unknown
+    notes: >-
+      Camera firmware is downloadable from ui.com and applied by the console; the only
+      account of doing this offline is a 2022 community thread about G3 cameras dropping
+      files into the console's downloads directory, not a documented procedure.
+
+  alternative_firmware:
+    value: false
+    source: https://github.com/OpenIPC/wiki/blob/master/en/guide-supported-devices.md
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: Not on OpenIPC's supported-devices list nor on Thingino's camera list.
+
+  ha_local_integration:
+    value: true
+    source: https://github.com/home-assistant/core/blob/dev/homeassistant/components/unifiprotect/manifest.json
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: 'iot_class: local_push'
+
+flashing:
+  supported: false
+  notes: No OpenIPC or Thingino port is listed for this camera.
+
+offers: []
+
+notes: >-
+  This camera is half a product: it only works adopted by a UniFi console running Protect
+  (a Cloud Gateway, Cloud Key or NVR you buy separately), and everything local about it
+  is really about that console. Set the console up with a local admin, skip the optional
+  UI Account, and recordings, AI detections and the API all stay on your LAN; Ubiquiti
+  documents air-gapped operation. Firmware for the camera still comes from Ubiquiti's
+  download servers via the console, and an offline update path is not documented.

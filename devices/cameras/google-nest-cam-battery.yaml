@@ -1,0 +1,93 @@
+# yaml-language-server: $schema=../../schema/device.schema.json
+id: google-nest-cam-battery
+brand: google
+model: Nest Cam (battery)
+hardware_revision: null
+category: cameras
+released: 2021
+product_url: https://store.google.com/us/product/nest_cam_battery_specs?hl=en-US
+
+ha:
+  integration: nest
+  works_with_ha_certified: false
+  route: core
+  cloud_needed: always
+  guide_url: https://www.home-assistant.io/integrations/nest/
+  source: https://www.home-assistant.io/integrations/nest/
+  verified_on: 2026-09-22
+  notes: >-
+    The core integration uses Google's Smart Device Management API and Cloud Pub/Sub; setup
+    requires a Google Cloud project, a paid Device Access project and OAuth. Live view is a
+    WebRTC stream brokered by Google's servers. Nothing is local.
+
+criteria:
+  works_offline:
+    value: false
+    source: https://support.google.com/googlenest/answer/9239727?hl=en
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Google states an offline camera cannot stream live video or save video to the cloud;
+      the on-device buffer (about one hour of events) is only uploaded once it reconnects and
+      is not viewable offline.
+
+  no_account_required:
+    value: false
+    source: https://store.google.com/us/product/nest_cam_battery_specs?hl=en-US
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      The tech specs say it "Requires the Google Home app and a Google Account".
+
+  local_api:
+    value: false
+    source: https://developers.google.com/nest/device-access/api/camera-battery
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      The only documented programmatic access is the cloud Smart Device Management API
+      (GenerateWebRtcStream); no RTSP, ONVIF or local endpoint is documented.
+
+  cloud_blockable:
+    value: false
+    source: https://support.google.com/googlenest/answer/9239727?hl=en
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Cut off from Google the camera cannot stream or record beyond its one-hour upload buffer.
+
+  local_firmware_updates:
+    value: false
+    source: https://support.google.com/googlenest/answer/9335964?hl=en
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Google states the camera updates automatically over the internet and "Manual updates
+      aren't available".
+
+  alternative_firmware:
+    value: false
+    source: https://raw.githubusercontent.com/themactep/thingino-firmware/master/docs/hardware/supported-hardware.md
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      No Google or Nest hardware on the Thingino supported list; none on OpenIPC's SoC list.
+
+  ha_local_integration:
+    value: false
+    source: https://github.com/home-assistant/core/blob/dev/homeassistant/components/nest/manifest.json
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: 'iot_class: cloud_push'
+
+flashing:
+  supported: false
+
+offers: []
+
+notes: >-
+  Without internet the camera keeps a buffer of about one hour of events in its own memory,
+  then stops; you cannot watch it or that buffer until it reconnects and uploads to Google.
+  A Google Account and the Google Home app are mandatory, updates are automatic and cloud
+  only, and Home Assistant reaches it through Google's paid Device Access API. There is no
+  local route and no alternative firmware.

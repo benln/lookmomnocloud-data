@@ -4,18 +4,55 @@ brand: dreame
 model: L10s Pro Ultra Heat
 hardware_revision: null
 category: robot-vacuums
+product_url: https://global.dreametech.com/pages/l10s-pro-ultra-heat
+
+ha:
+  integration: dreame_vacuum
+  works_with_ha_certified: false
+  route: hacs
+  cloud_needed: setup-only
+  guide_url: https://github.com/Tasshack/dreame-vacuum
+  source: https://raw.githubusercontent.com/Tasshack/dreame-vacuum/dev/custom_components/dreame_vacuum/strings.json
+  verified_on: 2026-09-22
+  notes: >-
+    No core integration. The Tasshack HACS component offers a "Local" mode that takes only the
+    robot's IP and its 32-character token, which you extract from the Mi Home / Dreamehome account
+    it was paired with; its config flow states the map feature requires a cloud connection.
 
 criteria:
   works_offline:
     value: unknown
+    notes: >-
+      Dreame's "Robot Vacuum Without Wi-Fi" blog post could not be read in full and no support
+      article states what this model does with the internet cut.
   no_account_required:
-    value: unknown
+    value: false
+    source: https://support.dreametech.com/hc/en-us/articles/12164381196047-How-to-download-the-Dreame-Home-APP-correctly
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Dreame's app guide: "Once installed, register and log in to your account" before network setup.
   local_api:
-    value: unknown
+    value: true
+    source: https://raw.githubusercontent.com/Tasshack/dreame-vacuum/dev/docs/supported_devices.md
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Tasshack's integration lists the L10s Pro Ultra Heat (dreame.vacuum.r2338a / r2377 / r2338h)
+      and its "Local" mode drives the robot with IP and token over the miIO/MIoT protocol.
   cloud_blockable:
     value: unknown
+    notes: >-
+      No source states whether this model keeps working, or keeps accepting local commands, once
+      permanently firewalled from Dreame's servers.
   local_firmware_updates:
-    value: unknown
+    value: false
+    source: https://support.dreametech.com/hc/en-us/articles/10385289142031
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Dreame: "A stable internet connection is crucial for a successful firmware upgrade"; updates
+      come only through the app, and auto-update is an opt-in toggle.
   alternative_firmware:
     value: true
     source: https://valetudo.cloud/pages/general/supported-robots/
@@ -24,6 +61,9 @@ criteria:
     notes: Listed as supported by Valetudo.
   ha_local_integration:
     value: unknown
+    notes: >-
+      No core integration; xiaomi_miio's vacuum model list is Roborock-only, so there is no core
+      iot_class to inherit.
 
 flashing:
   supported: true
@@ -36,10 +76,13 @@ flashing:
   verified_on: 2026-09-21
   notes: >-
     Rooting voids the warranty and can brick the robot. Valetudo documents the procedure per
-    model and keeps it current - link out, don't restate it.
+    model and keeps it current - link out, don't restate it. Valetudo flags docking, Wi-Fi and
+    negative-device-ID quirks on newer units.
 
 offers: []
 
 notes: >-
-  Seeded from Valetudo's supported-robots list: the flashing route is sourced, the seven
-  as-shipped criteria are not yet checked. Verdict stays `unverified` until they are.
+  A flagship dock robot that Valetudo can root over fastboot, which is the whole reason it is
+  here. As sold, pairing needs a Dreame account and firmware only arrives through the app. A local
+  protocol exists and Home Assistant can drive it over the LAN once you have the token, but
+  nobody documents what the robot does if Dreame's servers vanish for good.

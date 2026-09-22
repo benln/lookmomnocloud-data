@@ -1,0 +1,16 @@
+# yaml-language-server: $schema=../schema/brand.schema.json
+id: yi
+name: YI
+website: https://www.yitechnology.com/
+country: CN
+local_control_revoked_history:
+  value: unknown
+  verified_on: 2026-09-22
+  notes: >-
+    No documented removal of local control from already-sold hardware found, and no evidence
+    either way was checked in depth.
+
+notes: >-
+  Yi's home cameras are sold around the YI Home / Kami Home app and Yi Cloud, with no
+  documented local protocol on stock firmware. Most models can take the yi-hack custom
+  firmware from a microSD card, which is why they are catalogued here.

@@ -1,0 +1,103 @@
+# yaml-language-server: $schema=../../schema/device.schema.json
+id: eufy-indoor-cam-2k
+brand: eufy
+model: Indoor Cam 2K
+hardware_revision: T8400
+category: cameras
+product_url: https://www.eufy.com/eu-en/products/t8400
+
+ha:
+  integration: eufy_security
+  works_with_ha_certified: false
+  route: hacs
+  cloud_needed: always
+  guide_url: https://github.com/fuatakgun/eufy_security
+  source: https://github.com/fuatakgun/eufy_security/blob/master/custom_components/eufy_security/manifest.json
+  verified_on: 2026-09-22
+  notes: >-
+    The HACS integration (iot_class cloud_push) drives the eufy-security-ws add-on, which logs
+    in to the eufy cloud with a dedicated secondary account and then streams over P2P; the
+    cloud session stays up. The camera's own RTSP stream can instead be pulled by the generic
+    camera integration, but it only runs while the camera is live-viewing or recording an event.
+
+criteria:
+  works_offline:
+    value: unknown
+    notes: >-
+      Contradictory: eufy's general marketing says microSD cameras keep recording without
+      Wi-Fi, but a 2021 owner report on the Indoor Cam 2K
+      (https://community.eufy.com/t/eufy-indoor-cam-stops-recording-without-internet/1297044)
+      says event recording stopped after 2-3 days offline and the camera fell back into setup
+      mode. No model-specific vendor statement found.
+
+  no_account_required:
+    value: false
+    source: https://service.eufy.com/ie/article-description/Sign-up-for-A-eufy-Account
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      eufy states its cameras "require an account to receive real-time motion, sound
+      notifications and video footage"; setup goes through the eufy Security app login.
+
+  local_api:
+    value: true
+    source: https://community.eufy.com/t/full-resolution-rtsp-stream-from-indoor-cam-2k/186037
+    verified_on: 2026-09-22
+    confidence: community_verified
+    notes: >-
+      Owners confirm the Indoor Cam 2K exposes an RTSP stream (capped at 1080p) once
+      "NAS (RTSP Stream)" is enabled in the app; eufy documents the feature generically at
+      https://service.eufy.com/article-description/Using-NAS-Storage-Step-by-Step?ref=Home_Page
+      and notes it only streams while live-viewing or recording an event.
+
+  cloud_blockable:
+    value: unknown
+    notes: >-
+      No source states what happens when the camera is permanently firewalled; the 2021
+      offline report above suggests it degrades after days. Needs a dated test.
+
+  local_firmware_updates:
+    value: false
+    source: https://service.eufy.com/article-description/Update-Firmware-for-eufy-Devices-via-App
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      eufy states devices with network access "upgrade the firmware automatically in the wee
+      hours"; the only manual path is "check for firmware update" in the app. No file upload.
+
+  alternative_firmware:
+    value: true
+    source: https://raw.githubusercontent.com/themactep/thingino-firmware/master/docs/hardware/supported-hardware.md
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Thingino lists "Eufy C120 T8400X" (T31X SoC, SC3335 sensor); eufy's own pages give the
+      Indoor Cam 2K / Indoor Cam C120 the model number T8400. Check the suffix on your unit.
+
+  ha_local_integration:
+    value: true
+    source: https://www.home-assistant.io/integrations/generic/
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      No core eufy integration; the documented generic route is the RTSP stream into the
+      Generic Camera integration (Local Push), with the caveat that the stream is only live
+      during viewing or event recording.
+
+flashing:
+  supported: unknown
+  notes: >-
+    Thingino ships a firmware image for the "Eufy C120 T8400X" but its camera page lists no
+    installation method (https://thingino.com/cameras/12). One owner flashed two of three
+    units with the Ingenic USB cloner tool and called it hit or miss
+    (https://github.com/themactep/thingino-firmware/issues/960); another got no video
+    (issue 739). Not documented well enough to call it supported.
+
+offers: []
+
+notes: >-
+  Model T8400, also sold as the Indoor Cam C120 and the Solo IndoorCam C24. Set it up with a eufy account, enable "NAS (RTSP Stream)" and Home Assistant or an NVR
+  can pull video over the LAN, but only while the camera is already live-viewing or recording
+  an event, and firmware only ever arrives through the app. Whether it keeps recording to its
+  microSD card indefinitely with the internet cut is unproven: one owner saw it give up after
+  a few days. Thingino lists the board, but the install path is not yet documented.

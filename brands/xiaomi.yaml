@@ -1,6 +1,20 @@
 # yaml-language-server: $schema=../schema/brand.schema.json
 id: xiaomi
 name: Xiaomi
+website: https://www.mi.com/
+country: CN
 local_control_revoked_history:
   value: unknown
-  notes: Not reviewed yet.
+  verified_on: 2026-09-22
+  notes: >-
+    No documented removal of the miio local protocol found. Xiaomi has made the
+    device token harder to obtain: python-miio documents that newer Mi Home app
+    versions no longer store the token in the local database, so retrieval goes
+    through the cloud account, but the local API itself keeps working with the token
+    (https://python-miio.readthedocs.io/en/latest/legacy_token_extraction.html).
+    Hardening token retrieval is not revoking local control. No source establishes
+    false either.
+notes: >-
+  Mi Home devices accept local miio commands once you have the token, which now
+  requires a one-time trip through a Xiaomi account. No sourced case of local access
+  being removed from sold devices.

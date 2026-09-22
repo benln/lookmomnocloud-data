@@ -1,0 +1,18 @@
+# yaml-language-server: $schema=../schema/brand.schema.json
+id: ecovacs
+name: Ecovacs
+website: https://www.ecovacs.com/
+country: CN
+local_control_revoked_history:
+  value: unknown
+  verified_on: 2026-09-22
+  notes: >-
+    No documented removal found. The Home Assistant integration is cloud_push;
+    local operation is only possible by self-hosting a replacement server, which
+    the HA docs describe as coming "with some requirements and limitations"
+    (https://www.home-assistant.io/integrations/ecovacs/). Ecovacs never offered a
+    local API, and never having had it is not the same as having removed it.
+notes: >-
+  Deebot robots talk to Ecovacs' cloud; there is no vendor-supported local path.
+  The community's way out is a self-hosted stand-in server or Valetudo on the
+  models that can be rooted.

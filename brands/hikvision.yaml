@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=../schema/brand.schema.json
+id: hikvision
+name: Hikvision
+website: https://www.hikvision.com/
+country: CN
+local_control_revoked_history:
+  value: unknown
+  verified_on: 2026-09-22
+  notes: >-
+    No documented removal found. Firmware 5.5.0 turned ONVIF off by default and
+    requires creating an ONVIF user, which is a default change the owner can undo,
+    not a revocation. No source establishes the opposite either.
+notes: >-
+  Hikvision cameras keep RTSP, ONVIF and ISAPI locally; recent firmware makes you
+  switch ONVIF on yourself. No sourced case of local access being taken away.

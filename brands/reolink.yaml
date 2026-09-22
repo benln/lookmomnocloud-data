@@ -5,6 +5,15 @@ website: https://reolink.com/
 country: CN
 local_control_revoked_history:
   value: unknown
-  # To assert `false` we need a documented review of the firmware changelog and of the
-  # Home Assistant integration's history, linked as the source. Absence of evidence is not
-  # evidence of absence, and this field is the one brands will argue about.
+  verified_on: 2026-09-22
+  notes: >-
+    No documented removal found. Firmware v3.1.0764/v3.1.0804 on AI cameras
+    disabled the RTSP, RTMP, ONVIF, HTTP and HTTPS ports by default; Reolink
+    documents how to re-enable them under Network > Advanced > Port Settings
+    (https://community.reolink.com/topic/3183/why-do-i-fail-to-access-the-camera-via-the-web-browser-or-connect-to-the-third-party-software-after-upgrading-my-smart-cameras-with-the-latest-firmware-v-3-1-0764-v-3-1-0804-or-later).
+    A default change the owner can undo is not a revocation. To assert false we would
+    need a firmware changelog or HA integration history showing local access
+    continuously available; absence of evidence is not evidence of absence.
+notes: >-
+  Reolink wired cameras expose RTSP, ONVIF and a local API, and Home Assistant talks
+  to them locally. Newer firmware ships with those ports off until you turn them on.

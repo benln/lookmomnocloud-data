@@ -1,0 +1,92 @@
+# yaml-language-server: $schema=../../schema/device.schema.json
+id: arlo-pro-4
+brand: arlo
+model: Pro 4
+hardware_revision: null
+category: cameras
+product_url: https://kb.arlo.com/000063734/Arlo-Pro-4-Spec-Sheet-VMC4041P-VMC4050P
+
+ha:
+  integration: aarlo
+  works_with_ha_certified: false
+  route: hacs
+  cloud_needed: always
+  guide_url: https://github.com/twrecked/hass-aarlo
+  source: https://github.com/twrecked/hass-aarlo/blob/master/custom_components/aarlo/manifest.json
+  verified_on: 2026-09-22
+  notes: >-
+    No core integration. The HACS aarlo integration (iot_class cloud_push) uses the APIs of
+    the Arlo website with a dedicated Arlo account and 2FA; its README shows the stream path
+    as camera to Arlo cloud to Home Assistant. Nothing is local.
+
+criteria:
+  works_offline:
+    value: false
+    source: https://community.arlo.com/t5/Arlo-Pro-4/Arlo-4-Pro-local-WiFi-without-internet/td-p/1850274
+    verified_on: 2026-09-22
+    confidence: community_verified
+    notes: >-
+      Arlo community gurus answering a Pro 4 owner (2022-01-28): "Since Arlo is cloud-based,
+      loss of Internet would cause notifications, etc. to fail" and "Arlo doesn't provide a
+      way" to use it over the local network; Arlo's spec sheet lists a high-speed internet
+      connection as a requirement.
+
+  no_account_required:
+    value: false
+    source: https://kb.arlo.com/000062870/How-to-set-up-Arlo-Cameras-Arlo-Secure-4-0
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Setup starts with "Launch the Arlo Secure App", which is signed in with an Arlo account
+      (https://kb.arlo.com/000063049/How-do-I-create-an-Arlo-Account).
+
+  local_api:
+    value: false
+    source: https://community.arlo.com/t5/Arlo-Pro-3/Onvif-Protocol-support-in-Arlo-cameras/td-p/1926648
+    verified_on: 2026-09-22
+    confidence: community_verified
+    notes: >-
+      Accepted answer to a Pro 3/Pro 4 owner (2023-09-04): "Arlo cameras don't support
+      onvif"; Arlo publishes no RTSP or local HTTP interface for the camera itself.
+
+  cloud_blockable:
+    value: false
+    source: https://community.arlo.com/t5/Arlo-Pro-4/Arlo-4-Pro-local-WiFi-without-internet/td-p/1850274
+    verified_on: 2026-09-22
+    confidence: community_verified
+    notes: >-
+      Same thread: without internet there is no notification, live view or local access to the
+      Pro 4; it is a cloud-only device.
+
+  local_firmware_updates:
+    value: false
+    source: https://kb.arlo.com/2160/What-do-I-need-to-know-about-Arlo-camera-firmware-updates
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Arlo states cameras "will update their firmware automatically" when online; the only
+      manual option is triggering it from the Arlo Secure app.
+
+  alternative_firmware:
+    value: false
+    source: https://raw.githubusercontent.com/themactep/thingino-firmware/master/docs/hardware/supported-hardware.md
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: No Arlo hardware on the Thingino supported list; none on OpenIPC's SoC list.
+
+  ha_local_integration:
+    value: unknown
+    notes: >-
+      No core integration and no documented ONVIF/RTSP/MQTT route on the camera itself.
+
+flashing:
+  supported: false
+
+offers: []
+
+notes: >-
+  Sold as VMC4041P and VMC4050P. The Pro 4 is a cloud camera: without internet there is no live view, no alerts and no
+  local access, and Arlo's own community moderators say there is no LAN mode. The Arlo
+  account is required for setup, viewing and updates, which install automatically. Local
+  USB recording exists only through an optional SmartHub, and even then viewing goes through
+  Arlo's servers. No alternative firmware, no way out.

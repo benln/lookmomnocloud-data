@@ -1,0 +1,95 @@
+# yaml-language-server: $schema=../../schema/device.schema.json
+id: hikvision-ds-2cd2387g2-lu
+brand: hikvision
+model: DS-2CD2387G2-LU
+hardware_revision: null
+category: cameras
+product_url: https://www.hikvision.com/en/products/IP-Products/Network-Cameras/Pro-Series-EasyIP-/ds-2cd2387g2-l-u-/
+
+ha:
+  integration: hikvision
+  works_with_ha_certified: false
+  route: core
+  cloud_needed: never
+  guide_url: https://www.home-assistant.io/integrations/hikvision/
+  source: https://github.com/home-assistant/core/blob/dev/homeassistant/components/hikvision/manifest.json
+  verified_on: 2026-09-22
+  notes: >-
+    The core hikvision integration (local_push) subscribes to the camera's event stream
+    with its local credentials and exposes motion and line-crossing as binary sensors;
+    pair it with the generic ONVIF integration for the video stream.
+
+criteria:
+  works_offline:
+    value: unknown
+    notes: >-
+      No Hikvision statement found that this camera keeps recording to its microSD card
+      with the WAN cut; the generic user manual documents SD recording schedules but not
+      offline behaviour.
+
+  no_account_required:
+    value: true
+    source: https://assets.hikvision.com/prd/public/all/doc/m000051606/UD15501B-C_Baseline_User-Manual-of-Network-Camera_V5.5.90_20221223.pdf
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Hikvision's network camera manual activates the camera by setting an admin password
+      via web browser or SADP on the LAN; enabling Hik-Connect during activation is
+      described as optional.
+
+  local_api:
+    value: true
+    source: https://assets.hikvision.com/prd/public/all/doc/sm000058397/DS-2CD2387G2-LUK-D_Datasheet_V5.7.1_20211215.pdf
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Hikvision's datasheet for the DS-2CD2387G2-L(U)K variant lists ONVIF Profile S/G/T,
+      ISAPI and SDK under API; the -LU datasheet itself is no longer served by Hikvision's
+      CDN.
+
+  cloud_blockable:
+    value: true
+    source: https://assets.hikvision.com/prd/public/all/doc/m000051606/UD15501B-C_Baseline_User-Manual-of-Network-Camera_V5.5.90_20221223.pdf
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Platform Access (Hik-Connect) is an Enable checkbox under Configuration > Network >
+      Advanced Settings that you tick to opt in; with it off nothing in the camera talks
+      to Hikvision.
+
+  local_firmware_updates:
+    value: true
+    source: https://assets.hikvision.com/prd/public/all/doc/m000051606/UD15501B-C_Baseline_User-Manual-of-Network-Camera_V5.5.90_20221223.pdf
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Configuration > System > Maintenance > Upgrade & Maintenance: browse to a local
+      firmware file and click Upgrade.
+
+  alternative_firmware:
+    value: false
+    source: https://github.com/OpenIPC/wiki/blob/master/en/guide-supported-devices.md
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: Not on OpenIPC's supported-devices list nor on Thingino's camera list.
+
+  ha_local_integration:
+    value: true
+    source: https://github.com/home-assistant/core/blob/dev/homeassistant/components/hikvision/manifest.json
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: 'iot_class: local_push'
+
+flashing:
+  supported: false
+  notes: No OpenIPC or Thingino port is listed for this camera.
+
+offers: []
+
+notes: >-
+  Activate it with an admin password from its web page, leave the Hik-Connect checkbox
+  alone, and Hikvision's servers never enter the picture: ONVIF, RTSP and ISAPI serve the
+  video and events, and firmware is a file you upload. It records to a microSD card, a
+  NAS or an NVR. What is still missing here is a written Hikvision statement that
+  recording carries on with the internet cut, so the verdict stays unverified until
+  someone sources it.

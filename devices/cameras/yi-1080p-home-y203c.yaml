@@ -1,0 +1,113 @@
+# yaml-language-server: $schema=../../schema/device.schema.json
+id: yi-1080p-home-y203c
+brand: yi
+model: 1080p Home
+hardware_revision: "y203c"
+category: cameras
+product_url: https://www.yitechnology.com/yihome/
+
+ha:
+  integration: null
+  works_with_ha_certified: false
+  route: after-flash
+  cloud_needed: never
+  guide_url: https://github.com/roleoroleo/yi-hack-MStar
+  source: https://github.com/roleoroleo/yi-hack-MStar
+  verified_on: 2026-09-22
+  notes: >-
+    No core integration for the camera as sold. Once yi-hack-MStar is on the SD card the
+    camera speaks RTSP, ONVIF and MQTT, so Home Assistant's ONVIF integration (Local Push),
+    generic camera and MQTT integration (Local Push) pick it up with no vendor login; the
+    project also ships a HACS component
+    (https://github.com/roleoroleo/yi-hack_ha_integration) built on MQTT. Home Assistant's
+    legacy core `yi` integration (local_polling, FTP based) only works with the hacked
+    firmware too, so nothing here applies before flashing.
+
+criteria:
+  works_offline:
+    value: unknown
+    notes: >-
+      Yi's help centre (help.yitechnology.com) now renders as an empty single-page app and
+      the articles on offline behaviour could not be opened, so we do not assert what the
+      stock firmware does without the WAN. Verify: cut the WAN and check whether the YI Home
+      / Kami Home app still reaches the camera on the LAN and whether SD recording
+      continues.
+
+  no_account_required:
+    value: unknown
+    notes: >-
+      Yi's product page says to download the YI Home app and connect the device, and its own
+      manuals mention registering a YI account, but the account-creation help article could
+      not be opened, so this stays unknown. Verify: try to pair the camera in the YI Home /
+      Kami Home app without signing in.
+
+  local_api:
+    value: unknown
+    notes: >-
+      Yi's help-centre article "Does the camera support RTSP or ONVIF?"
+      (help.yitechnology.com article 360035242994) could not be opened, so we do not assert
+      the answer. A Kami staff member on the community forum writes that the YI app does not
+      support RTSP (https://forum.yitechnology.com/t/onvif-and-rtsp/3028), which is not a
+      statement about the firmware.
+
+  cloud_blockable:
+    value: unknown
+    notes: >-
+      No vendor statement found on what happens when the camera is firewalled from Yi's
+      servers. Verify: block WAN for a week and check live view, alerts and settings.
+
+  local_firmware_updates:
+    value: unknown
+    notes: >-
+      Yi documents firmware updates through the app (help-centre article "Check available
+      firmware update of your camera"), but the article could not be opened and we found no
+      statement on manual or forced updates.
+
+  alternative_firmware:
+    value: true
+    source: https://github.com/roleoroleo/yi-hack-MStar
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Listed as "Yi 1080p Home" with file prefix y203c in the yi-hack-MStar
+      supported-cameras table.
+
+  ha_local_integration:
+    value: unknown
+    notes: >-
+      No core integration talks to the stock firmware and no ONVIF/RTSP/MQTT is documented
+      as sold; the core `yi` integration is local_polling but requires the custom firmware.
+      See the ha block for what flashing buys.
+
+flashing:
+  supported: true
+  firmwares: [yi-hack]
+  method: sd-card
+  requires_soldering: false
+  difficulty: easy
+  reversible: null
+  guide_url: https://github.com/roleoroleo/yi-hack-MStar
+  guide_is_ours: false
+  tier_after_flash: fully-local
+  source: https://github.com/roleoroleo/yi-hack-MStar
+  verified_on: 2026-09-22
+  notes: >-
+    Covered by yi-hack-MStar (https://github.com/roleoroleo/yi-hack-MStar): serial-number
+    prefixes 4FUS, 6FUS, 9FUS, BFUS (firmware 4.5.0) and 6FCN (firmware version not listed).
+    Install: format the SD card FAT32, unpack the release for your model onto it, insert and
+    reboot. The README lists RTSP, ONVIF and MQTT servers and "the possibility to disable
+    all the cloud features", so the hacked camera can run with no Yi account or cloud. The
+    README warns that this firmware completely overwrites the original firmware; going back
+    needs the backup of the stock partitions the wiki tells you to dump first, so we do not
+    call it reversible.
+
+offers: []
+
+notes: >-
+  As sold the Yi 1080p Home is driven entirely by the YI Home / Kami Home app and Yi's
+  cloud, and Yi's help centre could not be opened to confirm what survives without it, so
+  the verdict stays unverified rather than guessed. The way out is a microSD card:
+  yi-hack-MStar replaces the stock firmware and adds RTSP, ONVIF and MQTT, lets you switch
+  the cloud off, and Home Assistant then talks to the camera directly. Match the file prefix
+  (y203c) and your serial-number prefix to the project's table before you flash, because the
+  same box ships with several different chips.

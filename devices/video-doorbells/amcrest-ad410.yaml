@@ -1,0 +1,98 @@
+# yaml-language-server: $schema=../../schema/device.schema.json
+id: amcrest-ad410
+brand: amcrest
+model: AD410
+hardware_revision: null
+category: video-doorbells
+product_url: https://amcrest.com/4mp-wifi-camera-doorbell-ad410.html
+
+ha:
+  integration: amcrest
+  works_with_ha_certified: false
+  route: core
+  cloud_needed: never
+  guide_url: https://www.home-assistant.io/integrations/amcrest/
+  source: https://www.home-assistant.io/integrations/onvif/
+  verified_on: 2026-09-22
+  notes: >-
+    Both the amcrest and the onvif integrations talk to the doorbell on the LAN with its
+    device credentials; the ONVIF docs specifically note the AD410's button press arrives
+    as a digital-input event. Initial pairing still has to happen in the Amcrest Smart
+    Home app.
+
+criteria:
+  works_offline:
+    value: true
+    source: https://ipcamtalk.com/threads/new-amcrest-ad410-doorbell-cam-review.56726/
+    verified_on: 2026-09-22
+    confidence: community_verified
+    notes: >-
+      Report dated 2021-06-11: with the doorbell on a VLAN with no internet, the RTSP
+      stream, the mechanical chime and ONVIF events all keep working; the button LED blinks
+      to signal it is offline.
+
+  no_account_required:
+    value: false
+    source: https://support.amcrest.com/hc/en-us/articles/360051649972-How-to-Register-an-Amcrest-Smart-Home-Account
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Amcrest documents registering a Smart Home account as the step that lets you add
+      devices in the app, and its RTSP/Blue Iris/NAS guides all say the doorbell must be set
+      up in the Amcrest Smart Home app first.
+
+  local_api:
+    value: true
+    source: https://support.amcrest.com/hc/en-us/articles/360055339051-Technical-Specifications-AD410
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      The AD410 spec sheet lists RTSP as supported and SDK/CGI API availability; Amcrest
+      also publishes a VLC-over-RTSP guide for the doorbell.
+
+  cloud_blockable:
+    value: true
+    source: https://ipcamtalk.com/threads/new-amcrest-ad410-doorbell-cam-review.56726/
+    verified_on: 2026-09-22
+    confidence: community_verified
+    notes: >-
+      Same 2021-06 report: blocked at the router permanently, video, chime and events
+      continue; the only casualty is the blinking button ring, and a follow-up warns that
+      poking the cloud-related config keys via the API can brick the unit.
+
+  local_firmware_updates:
+    value: true
+    source: https://support.amcrest.com/hc/en-us/articles/12358637857677-How-to-Upgrade-Downgrade-Amcrest-Smart-Home-Firmware-Manually-Using-the-Amcrest-IP-Config-Tool
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: >-
+      Amcrest documents manual upgrade or downgrade of Smart Home devices with a .bin file
+      through the IP Config Tool on the same LAN.
+
+  alternative_firmware:
+    value: false
+    source: https://github.com/OpenIPC/wiki/blob/master/en/guide-supported-devices.md
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: Not on OpenIPC's supported-devices list nor on Thingino's camera list.
+
+  ha_local_integration:
+    value: true
+    source: https://github.com/home-assistant/core/blob/dev/homeassistant/components/amcrest/manifest.json
+    verified_on: 2026-09-22
+    confidence: vendor_documented
+    notes: 'iot_class: local_polling; the onvif integration (local_push) also works.'
+
+flashing:
+  supported: false
+  notes: No OpenIPC or Thingino port is listed for this doorbell.
+
+offers: []
+
+notes: >-
+  Two doorbells in one box. The Amcrest Smart Home app and its account are the only way
+  to do the first setup, and phone notifications, two-way talk and cloud clips go through
+  Amcrest's servers. Underneath sits an ordinary Dahua-style camera: local RTSP stream,
+  ONVIF button and motion events, microSD recording, a CGI API, and manual firmware files.
+  Cut the internet after setup and the ring, the chime and the stream carry on; the button
+  ring blinks to sulk about it.

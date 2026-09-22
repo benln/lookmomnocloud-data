@@ -1,6 +1,17 @@
 # yaml-language-server: $schema=../schema/brand.schema.json
 id: dreame
 name: Dreame
+website: https://www.dreametech.com/
+country: CN
 local_control_revoked_history:
   value: unknown
-  notes: Not reviewed yet.
+  verified_on: 2026-09-22
+  notes: >-
+    No documented removal found. Dreame has added secure-boot gates and silent PCB
+    revisions that block rooting on newer units; that is hardening against
+    modification, not withdrawing local control from hardware already sold. No
+    source establishes continuous availability either, so unknown.
+notes: >-
+  Dreame robots run through Xiaomi/Dreame cloud by default; local use means rooting
+  to Valetudo where the hardware revision allows it. No sourced case of the vendor
+  removing local access from sold robots.

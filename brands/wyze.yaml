@@ -1,0 +1,32 @@
+# yaml-language-server: $schema=../schema/brand.schema.json
+id: wyze
+name: Wyze
+website: https://www.wyze.com/
+country: US
+local_control_revoked_history:
+  value: true
+  verified_on: 2026-09-22
+  incidents:
+    - date: 2022-04-07
+      summary: >-
+        Wyze pulled the RTSP firmware downloads for Wyze Cam v2, v3 and Pan, the
+        only local-stream option for those cameras, saying RTSP "was considered a
+        beta feature" and that the files were removed while it assessed the path
+        forward. Cameras already flashed kept running the old build, but owners had
+        no supported way to get or keep local streaming.
+      source: https://forums.wyze.com/t/fyi-rtsp-firmware-files-removed-from-site/224781
+      resolved: false
+  notes: >-
+    Counted because it withdrew the documented local-access route from cameras
+    already sold. Partially walked back: by April 2026 Wyze shipped RTSP inside the
+    regular v3 (4.36.16.6114) and Pan v3 (4.50.16.6242) firmware
+    (https://forums.wyze.com/t/v4-cam-rtsp-update/340672); v2 and Pan v1 never got
+    it back. Not counted: the March 2022 disclosure that Wyze Cam v1 was left
+    unpatched, which is a security failure, not a removal of local control; and the
+    March 2026 v4 firmware that broke third-party stream workarounds, since Wyze had
+    never offered RTSP on the v4
+    (https://forums.wyze.com/t/wyze-cam-v4-rtsp-removed-5-cameras-now-useless-for-their-intended-purpose/341508).
+notes: >-
+  Wyze cameras are cloud-first; RTSP was an optional beta firmware that Wyze pulled
+  in 2022 and only reintroduced for two models in 2026. Buy on the assumption that
+  local streaming exists at Wyze's discretion.
